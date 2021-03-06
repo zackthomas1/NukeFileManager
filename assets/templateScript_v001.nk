@@ -1,0 +1,98 @@
+#! C:/Program Files/Nuke11.2v4/nuke-11.2.4.dll -nx
+version 11.2 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="1713" y="0" w="1718" h="1368" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="749" stretch="1"/>
+            <splitter orientation="2">
+                <split size="1324"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                </dock>
+            </splitter>
+            <split size="921"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+    <window x="-8" y="0" w="1720" h="1369" screen="0">
+        <splitter orientation="2">
+            <split size="1230"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="Viewer.1"/>
+            </dock>
+            <split size="135"/>
+            <dock id="" activePageId="DopeSheet.1">
+                <page id="DopeSheet.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+    inputs 0
+    name "C:/Users/Zach Thomas/Desktop/Freelance_prj/_test_v001-ZNT.nk"
+    frame 81
+    last_frame 236
+    lock_range true
+    format "3200 1412 0 0 3200 1412 1 "
+    proxy_type scale
+    proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+    colorManagement Nuke
+    workingSpaceLUT linear
+    monitorLut sRGB
+    int8Lut sRGB
+    int16Lut sRGB
+    logLut Cineon
+    floatLut linear
+}
+
+CheckerBoard2 {
+    inputs 0
+    name CheckerBoard1
+    xpos 0
+    ypos 0
+}
+
+Colorspace {
+    colorspace_in 1.80
+    name Colorspace1
+    xpos 0
+    ypos 100
+}
+
+#Dot {
+    #name Dot1
+    #xpos 25
+    #ypos 150
+#}
+
+Colorspace {
+    colorspace_in 1.80
+    name Colorspace2
+    xpos 0
+    ypos 200
+}
+
+Write {
+    file "C:/Users/Zach Thomas/Desktop/Freelance_prj/02_09_2019/Working/PreComps/A016C005_190603_R0I0/Denoise_APlate/v0001/A016C005_190603_R0I0_PreComp_Denoise_APlate_v001_####.exr"
+    file_type exr
+    first_part none
+    create_directories true
+    version 3
+    in_colorspace linear
+    out_colorspace linear
+    name Write3
+    tile_color 0xff8200ff
+    label "Output01\n"
+    xpos 0
+    ypos 250
+}
