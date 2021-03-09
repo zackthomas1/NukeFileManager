@@ -17,11 +17,17 @@ class FileManger():
         pass
 
      
-    def launch_nukeindie(self): 
+    def launch_nukeindie(self, scriptName = None): 
         """Launches an instance of nuke indie application"""   
 
-        subprocess.Popen(self.exePath)
-        logging.debug("FileManger::launch_nukeindie-> launching nuke")
+        if scriptName != None:
+            nkScript = os.path.join(self.shotScriptsDir, scriptName)
+            subprocess.Popen("%s %s" % (self.exePath, nkScript))
+            logging.debug("FileManger::launch_nukeindie->launching nuke nkScript: \'" + nkScript + "\'")
+        else: 
+            subprocess.Popen(self.exePath)
+            logging.debug("FileManger::launch_nukeindie-> launching nuke")
+        
 
     def set_root_dir(self, inputDirPath):
         """ """

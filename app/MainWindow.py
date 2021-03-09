@@ -36,9 +36,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.launchNukeIndie_pushButton.pressed.connect(self.pressed_launch_nukeindie)
 
     def pressed_launch_nukeindie(self): 
-        logging.debug("MainWindow::launch_nukeindie-> " +
-                        "from FileManger calling static launch_nukeindie method")
-        self.fileMan.launch_nukeindie()
+        
+        indexes = self.nkFiles_listView.selectedIndexes() 
+
+        if indexes: 
+            index = indexes[0]
+            scriptName = self.scriptsViewModel.scripts[index.row()]
+            self.fileMan.launch_nukeindie(scriptName)
+            logging.debug("MainWindow::launch_nukeindie-> " +
+                            "from FileManger calling launch_nukeindie method" + 
+                            "with parameter")
+        else:
+            self.fileMan.launch_nukeindie()
+            logging.debug("MainWindow::launch_nukeindie-> " +
+                            "from FileManger calling launch_nukeindie method")
 
     def enter_root_dir(self): 
         inputRootDir = self.rootDir_lineEdit.text()
