@@ -7,6 +7,7 @@ from PySide2.QtWidgets import *
 
 from __QtFiles__.NukeFileMangerGUI_v001 import Ui_MainWindow
 from modules.FileManger import FileManger
+from modules.ScriptsListViewModel import ScriptsListViewModel
 
 class MainWindow(QMainWindow, Ui_MainWindow): 
 
@@ -14,23 +15,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def __init__(self): 
         super().__init__()
-
         self.setupUi(self)
         self.show()
 
-        self.rootDir_lineEdit.returnPressed.connect(self.enter_root_dir)
-        self.showCode_lineEdit.returnPressed.connect(self.enter_show_code)
-        self.shotCode_lineEdit.returnPressed.connect(self.enter_shot_code)
+        # Set up scripts list view model 
+        # ------------------------------
+        self.scriptsViewModel = ScriptsListViewModel()
+        self.nkFiles_listView.setModel(self.scriptsViewModel)
+
+        # Slot-Signal connections 
+        # -----------------------
+        self.rootDir_lineEdit.editingFinished.connect(self.enter_root_dir)
+        self.showCode_lineEdit.editingFinished.connect(self.enter_show_code)
+        self.shotCode_lineEdit.editingFinished.connect(self.enter_shot_code)
 
         self.enter_shotinfo_pushButton.pressed.connect(self.pressed_enter_shotinfo)
 
+        self.nkFiles_listView.doubleClicked.connect(self.doubleClick_script)
+
         self.launchNukeIndie_pushButton.pressed.connect(self.pressed_launch_nukeindie)
 
-
-
     def pressed_launch_nukeindie(self): 
-        logging.debug("MainWindow::launch_nukeindie-> from FileManger calling static launch_nukeindie method")
-        FileManger.launch_nukeindie()
+        logging.debug("MainWindow::launch_nukeindie-> " +
+                        "from FileManger calling static launch_nukeindie method")
+        self.fileMan.launch_nukeindie()
 
     def enter_root_dir(self): 
         inputRootDir = self.rootDir_lineEdit.text()
@@ -55,8 +63,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def pressed_enter_shotinfo(self): 
         logging.debug("MainWindow::pressed_enter_shotinfo -> " + 
-                        "from FileManger calling ____ method ")
+                        "from FileManger calling enter_shotinfo() method ")
 
-    
+
+        self.scriptsViewModel.scripts = self.fileMan.enter_shotinfo()
+        self.scriptsViewModel.layoutChanged.emit()
+        logging.debug("MainWindow::pressed_enter_shotinfo-> scriptsViewModel Updated")
+
+    def doubleClick_script(self): 
+
+        # Gets Indexes (list of a single item, since nkFiles_listView is in single select mode)
+        indexes = self.nkFiles_listView.selectedIndexes()
+
+        if indexes: 
+            # Indexes is a list of a single item in single-select mode
+            index = indexes[0]
+            scriptName = self.scriptsViewModel.scripts[index.row()]
+            logging.debug("MainWindow::doubleClick_script-> " +
+                        "from FileManger calling doubleClick_launch_script_nukeIndie() method " +
+                        "with parameter: " + scriptName)
+            self.fileMan.doubleClick_launch_script_nukeIndie(scriptName)
+        else: 
+            logging.error("ERROR: MainWindow::doubleClick_script-> no index selected")
+            raise Exception
+
+
 
 
