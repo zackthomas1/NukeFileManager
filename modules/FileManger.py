@@ -44,11 +44,17 @@ class FileManger():
         self.showCode = inputShowCode 
         logging.debug ("FileManger::set_show_code-> showCode: " + self.showCode)
 
-    def set_shot_code(self, inputShotCode): 
-        """ """ 
-
+    def set_shot_code(self, inputShotCode):  
+        
         self.shotCode = inputShotCode
-        logging.debug ("FileManger::set_shot_code-> shotCode: " + self.shotCode)
+        logging.debug("FileManger::set_shot_code-> shotCode: %s" % self.shotCode)
+
+
+    # def set_shot_code(self, inputShotCode): 
+    #     """ """ 
+
+    #     self.shotCode = inputShotCode
+    #     logging.debug ("FileManger::set_shot_code-> shotCode: " + self.shotCode)
 
     def enter_shotinfo(self): 
         """Takes instance variables(rootDir, showCode, shotCode) returns data structure
@@ -88,7 +94,7 @@ class FileManger():
         # Remove any folder with "_sample_" syntax these are templates for other folder/development folders
         for shot in shotsList: 
             if shot.startswith("_") and shot.endswith("_"): 
-                logging.debug("FileManger::get_shots_list-> removed %s for shotsList" % shot)
+                logging.debug("FileManger::get_shots_list-> removed '%s' for shotsList" % shot)
                 shotsList.remove(shot)     
 
         logging.debug("FileManger::get_shots_list-> %s" % str(shotsList))

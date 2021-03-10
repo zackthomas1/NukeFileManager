@@ -58,33 +58,17 @@
      <string>Enter Show Code</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="shotCode_lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>460</y>
-      <width>501</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="placeholderText">
-     <string>Enter Shot Number</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="enter_shotinfo_pushButton">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>650</y>
+      <x>170</x>
+      <y>510</y>
       <width>181</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>enter shot info</string>
+     <string>Update Shot List</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="rootDir_lineEdit">
@@ -113,10 +97,13 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>500</y>
-      <width>491</width>
+      <y>460</y>
+      <width>501</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Shot Code</string>
     </property>
    </widget>
   </widget>

@@ -25,7 +25,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # UI_MainWindow Style adjustments
         # -------------------------------
-        self.shotCode_comboBox.setPlaceholderText("Shot Code")
 
         # Slot-Signal connections 
         # -----------------------
@@ -34,7 +33,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.rootDir_lineEdit.editingFinished.connect(self.enter_root_dir)
         self.showCode_lineEdit.editingFinished.connect(self.enter_show_code)
-        self.shotCode_lineEdit.editingFinished.connect(self.enter_shot_code)
+        self.shotCode_comboBox.currentIndexChanged.connect(self.enter_shot_code)
 
         self.enter_shotinfo_pushButton.pressed.connect(self.pressed_enter_shotinfo)
 
@@ -77,11 +76,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.shotCode_comboBox.clear()
         self.shotCode_comboBox.addItems(shotList)
 
-    def enter_shot_code(self):
-        inputShotCode = self.shotCode_lineEdit.text()
+    def enter_shot_code(self): 
+        index = self.shotCode_comboBox.currentIndex()
+        inputShotCode = self.shotCode_comboBox.itemText(index)
+
         logging.debug("MainWindow::enter_shot_code -> " + 
-                        "from FileManger calling set_shot_code method " + 
-                        "with parameter: " + inputShotCode)
+                        "from FileManger calling set_shot_code method " +
+                        "with parameter: %s" % str(inputShotCode))
         self.fileMan.set_shot_code(inputShotCode)
 
     def pressed_enter_shotinfo(self): 
