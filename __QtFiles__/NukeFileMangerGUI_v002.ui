@@ -129,6 +129,24 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuShot_Browser">
+    <property name="title">
+     <string>Shot Browser</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuShow_Builder">
+    <property name="title">
+     <string>Show Builder</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuShot_Builder">
+    <property name="title">
+     <string>Shot Builder</string>
+    </property>
+   </widget>
+   <addaction name="menuShot_Browser"/>
+   <addaction name="menuShow_Builder"/>
+   <addaction name="menuShot_Builder"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
