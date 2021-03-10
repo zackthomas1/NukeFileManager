@@ -1,13 +1,14 @@
 import sys
 import logging
 
-from PySide2.QtCore import * 
+from PySide2.QtCore import *
 from PySide2.QtGui import * 
 from PySide2.QtWidgets import * 
 
 from __QtFiles__.NukeFileMangerGUI_v002 import Ui_MainWindow
 from modules.FileManger import FileManger
 from modules.ScriptsListViewModel import ScriptsListViewModel
+from modules.ShotCodeViewModel import ShotCodeViewModel
 
 class MainWindow(QMainWindow, Ui_MainWindow): 
 
@@ -23,9 +24,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.scriptsViewModel = ScriptsListViewModel()
         self.nkFiles_listView.setModel(self.scriptsViewModel)
 
+        self.shotCodeModel = ShotCodeViewModel()
+        self.shotCode_comboBox.setModel(self.shotCodeModel)
+
         # UI_MainWindow Style adjustments
         # -------------------------------
-
+        # self.shotCode_comboBox.setEditable(True)
+        # self.shotCode_comboBox.lineEdit().setPlaceholderText("Test")
+        
         # Slot-Signal connections 
         # -----------------------
 
@@ -33,9 +39,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.rootDir_lineEdit.editingFinished.connect(self.enter_root_dir)
         self.showCode_lineEdit.editingFinished.connect(self.enter_show_code)
-        self.shotCode_comboBox.currentIndexChanged.connect(self.enter_shot_code)
+        self.shotCode_comboBox.currentIndexChanged.connect(self.selected_shot_code)
 
-        self.enter_shotinfo_pushButton.pressed.connect(self.pressed_enter_shotinfo)
+        self.enter_shotinfo_pushButton.pressed.connect(self.pressed_update_shotList)
 
         self.launchNukeIndie_pushButton.pressed.connect(self.pressed_launch_nukeindie)
 
@@ -71,12 +77,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.fileMan.set_show_code(inputShowCode)
 
+        self.shotCode_comboBox.setCurrentIndex(-1)
         shotList = self.fileMan.get_shots_list()
+        self.shotCodeModel.shots = shotList
+        self.shotCodeModel.layoutChanged.emit()
         logging.debug("MainWindow::enter_show_code-> Updating shotCode_comboBox with: %s" % shotList)
-        self.shotCode_comboBox.clear()
-        self.shotCode_comboBox.addItems(shotList)
 
-    def enter_shot_code(self): 
+    def selected_shot_code(self): 
         index = self.shotCode_comboBox.currentIndex()
         inputShotCode = self.shotCode_comboBox.itemText(index)
 
@@ -85,14 +92,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         "with parameter: %s" % str(inputShotCode))
         self.fileMan.set_shot_code(inputShotCode)
 
-    def pressed_enter_shotinfo(self): 
-        logging.debug("MainWindow::pressed_enter_shotinfo -> " + 
-                        "from FileManger calling enter_shotinfo() method ")
+    def pressed_update_shotList(self): 
+        logging.debug("MainWindow::pressed_update_shotList -> " + 
+                        "from FileManger calling update_shotList() method ")
 
-
-        self.scriptsViewModel.scripts = self.fileMan.enter_shotinfo()
+        self.scriptsViewModel.scripts = self.fileMan.update_shotList()
         self.scriptsViewModel.layoutChanged.emit()
-        logging.debug("MainWindow::pressed_enter_shotinfo-> scriptsViewModel Updated")
+        logging.debug("MainWindow::pressed_update_shotList-> scriptsViewModel Updated")
 
     def pressed_launch_nukeindie(self): 
         

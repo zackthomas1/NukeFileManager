@@ -11,6 +11,8 @@ class FileManger():
     shotCode = ""
     shotScriptsDir = ""
 
+    scriptFiles = []
+
     exePath = "C:\\Program Files\\Nuke12.2v5\\Nuke12.2.exe --indie"   
     
     def __init__(self): 
@@ -22,7 +24,7 @@ class FileManger():
         if scriptName != None:
             nkScript = os.path.join(self.shotScriptsDir, scriptName)
             subprocess.Popen("%s %s" % (self.exePath, nkScript))
-            logging.debug("FileManger::launch_nukeindie->launching nuke nkScript: \'" + nkScript + "\'")
+            logging.debug("FileManger::launch_nukeindie->launching nuke nkScript: \'%s\'" % nkScript)
         else: 
             subprocess.Popen(self.exePath)
             logging.debug("FileManger::launch_nukeindie-> launching nuke")
@@ -32,56 +34,30 @@ class FileManger():
         
         if os.path.isdir(inputDirPath): 
             self.rootDir = inputDirPath
-            logging.debug ("FileManger::set_root_dir-> pathDirName: " + self.rootDir)
+            logging.debug ("FileManger::set_root_dir-> pathDirName: %s" % self.rootDir)
         else: 
-            logging.error("ERROR<<FileManger::set_root_dir-> provided filepath " + 
-                            inputDirPath + "is not valid." )
+            logging.error("ERROR << FileManger::set_root_dir-> '%s' is not valid path" % inputDirPath)
             raise Exception
 
     def set_show_code(self, inputShowCode): 
         """ """ 
-
-        self.showCode = inputShowCode 
-        logging.debug ("FileManger::set_show_code-> showCode: " + self.showCode)
+        if os.path.isdir(os.path.join(self.rootDir, inputShowCode)):
+            self.showCode = inputShowCode 
+            logging.debug ("FileManger::set_show_code-> showCode: %s" % self.showCode)
+        else: 
+            logging.error("ERROR << FileManger::set_show_code-> '%s' not vaild path" % os.path.join(self.rootDir, inputShowCode))
+            raise Exception
 
     def set_shot_code(self, inputShotCode):  
         
         self.shotCode = inputShotCode
         logging.debug("FileManger::set_shot_code-> shotCode: %s" % self.shotCode)
 
-
-    # def set_shot_code(self, inputShotCode): 
-    #     """ """ 
-
-    #     self.shotCode = inputShotCode
-    #     logging.debug ("FileManger::set_shot_code-> shotCode: " + self.shotCode)
-
-    def enter_shotinfo(self): 
-        """Takes instance variables(rootDir, showCode, shotCode) returns data structure
-            to be displayed in nkFiles_listView """
-        
-        self.shotScriptsDir = os.path.join(self.rootDir, 
-                                os.path.join(self.showCode, 
-                                            os.path.join("Scripts", self.shotCode)
-                                            )
-                                ) 
-        logging.debug("FileManger::enter_shotinfo-> shotPath: %s" % self.shotScriptsDir)
-        
-        scriptFiles = os.listdir(self.shotScriptsDir) 
-        logging.debug("FileManger::enter_shotinfo-> return: %s" % str(scriptFiles))
-
-        return scriptFiles
-
-    def doubleClick_launch_script_nukeIndie(self, scriptName): 
-        """Opens selected script with instance of nuke indie"""
-
-        nkScript = os.path.join(self.shotScriptsDir, scriptName)
-        logging.debug("FileManger::doubleClick_launch_script_nukeIndie-> nkScript: \'%s\'" % nkScript)
-
-        subprocess.Popen("%s %s" % (self.exePath, nkScript))
+    def get_show_list(self): 
+        pass 
 
     def get_shots_list(self):
-        """ """ 
+        """Returns a list of shots in show directory scripts folder""" 
 
         scriptsDir = os.path.join(self.rootDir, 
                                     os.path.join(self.showCode, "Scripts"
@@ -99,3 +75,29 @@ class FileManger():
 
         logging.debug("FileManger::get_shots_list-> %s" % str(shotsList))
         return shotsList
+
+    def update_shotList(self): 
+        """Takes instance variables(rootDir, showCode, shotCode) returns data structure
+            to be displayed in nkFiles_listView """
+        
+
+        self.shotScriptsDir = os.path.join(self.rootDir, 
+                                os.path.join(self.showCode, 
+                                            os.path.join("Scripts", self.shotCode)
+                                            )
+                                ) 
+        logging.debug("FileManger::update_shotList-> shotPath: %s" % self.shotScriptsDir)
+        
+        self.scriptFiles = os.listdir(self.shotScriptsDir) 
+        logging.debug("FileManger::update_shotList-> return: %s" % str(self.scriptFiles))
+
+        return self.scriptFiles
+
+    def doubleClick_launch_script_nukeIndie(self, scriptName): 
+        """Opens selected script with instance of nuke indie"""
+
+        nkScript = os.path.join(self.shotScriptsDir, scriptName)
+        logging.debug("FileManger::doubleClick_launch_script_nukeIndie-> nkScript: \'%s\'" % nkScript)
+
+        subprocess.Popen("%s %s" % (self.exePath, nkScript))
+

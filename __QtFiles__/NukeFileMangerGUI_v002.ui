@@ -45,9 +45,9 @@
    <widget class="QLineEdit" name="showCode_lineEdit">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>110</x>
       <y>420</y>
-      <width>501</width>
+      <width>401</width>
       <height>31</height>
      </rect>
     </property>
@@ -74,9 +74,9 @@
    <widget class="QLineEdit" name="rootDir_lineEdit">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>110</x>
       <y>380</y>
-      <width>501</width>
+      <width>401</width>
       <height>31</height>
      </rect>
     </property>
@@ -96,14 +96,65 @@
    <widget class="QComboBox" name="shotCode_comboBox">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>110</x>
       <y>460</y>
-      <width>501</width>
+      <width>401</width>
       <height>31</height>
      </rect>
     </property>
-    <property name="placeholderText">
-     <string>Shot Code</string>
+   </widget>
+   <widget class="QLabel" name="Shot_label">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>460</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Shot: </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Show_label">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>423</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Show:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Directory_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>383</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Directory:</string>
     </property>
    </widget>
   </widget>
