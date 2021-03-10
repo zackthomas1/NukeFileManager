@@ -53,8 +53,22 @@ class FileManger():
         self.shotCode = inputShotCode
         logging.debug("FileManger::set_shot_code-> shotCode: %s" % self.shotCode)
 
-    def get_show_list(self): 
-        pass 
+    def get_shows_list(self): 
+        """Returns a list of shows in the root directory"""
+
+        showsDir = self.rootDir
+        logging.debug("FileManger:::get_shows_list-> %s" % showsDir)
+
+        showsList = os.listdir(showsDir)
+
+        # Remove any folder with "_sample_" syntax these are templates for other folder/development folders 
+        for show in showsList: 
+            if show.startswith("_") and show.endswith("_"):
+                logging.debug("FileManger::get_shows_list-> removed '%s' for shotsList" % show)
+                showsList.remove(show) 
+
+        logging.debug("FileManger::get_shows_list-> %s" % str(showsList))
+        return showsList
 
     def get_shots_list(self):
         """Returns a list of shots in show directory scripts folder""" 

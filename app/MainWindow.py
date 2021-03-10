@@ -7,8 +7,9 @@ from PySide2.QtWidgets import *
 
 from __QtFiles__.NukeFileMangerGUI_v002 import Ui_MainWindow
 from modules.FileManger import FileManger
-from modules.ScriptsListViewModel import ScriptsListViewModel
-from modules.ShotCodeViewModel import ShotCodeViewModel
+from modules.ScriptsListModel import ScriptsListModel
+from modules.ShotCodeModel import ShotCodeModel
+from modules.ShowCodeModel import ShowCodeModel
 
 class MainWindow(QMainWindow, Ui_MainWindow): 
 
@@ -21,24 +22,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Set up scripts list view model 
         # ------------------------------
-        self.scriptsViewModel = ScriptsListViewModel()
+        # Script list view    
+        self.scriptsViewModel = ScriptsListModel()
         self.nkFiles_listView.setModel(self.scriptsViewModel)
 
-        self.shotCodeModel = ShotCodeViewModel()
+        # Show comboBox
+        self.showCodeModel = ShowCodeModel() 
+        self.showCode_comboBox.setModel(self.showCodeModel)
+
+        # Shot comboBox
+        self.shotCodeModel = ShotCodeModel()
         self.shotCode_comboBox.setModel(self.shotCodeModel)
 
         # UI_MainWindow Style adjustments
         # -------------------------------
-        # self.shotCode_comboBox.setEditable(True)
-        # self.shotCode_comboBox.lineEdit().setPlaceholderText("Test")
         
         # Slot-Signal connections 
         # -----------------------
 
         self.nkFiles_listView.doubleClicked.connect(self.doubleClick_script)
 
-        self.rootDir_lineEdit.editingFinished.connect(self.enter_root_dir)
-        self.showCode_lineEdit.editingFinished.connect(self.enter_show_code)
+        self.rootDir_lineEdit.editingFinished.connect(self.entered_root_dir)
+        self.showCode_comboBox.currentIndexChanged.connect(self.selected_show_code)
         self.shotCode_comboBox.currentIndexChanged.connect(self.selected_shot_code)
 
         self.enter_shotinfo_pushButton.pressed.connect(self.pressed_update_shotList)
@@ -62,21 +67,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             logging.error("ERROR: MainWindow::doubleClick_script-> no index selected")
             raise Exception
 
-    def enter_root_dir(self): 
+    def entered_root_dir(self): 
         inputRootDir = self.rootDir_lineEdit.text()
         logging.debug("MainWindow::enter_root_dir -> " + 
                         "from FileManger calling set_path_baseName method " + 
                         "with parameter: " + inputRootDir)
+
         self.fileMan.set_root_dir(inputRootDir)
 
-    def enter_show_code(self): 
-        inputShowCode = self.showCode_lineEdit.text()
+        # Updating show comboBox
+        self.showCode_comboBox.setCurrentIndex(-1)
+        showList = self.fileMan.get_shows_list()
+        self.showCodeModel.shows = showList
+        self.showCodeModel.layoutChanged.emit()
+        logging.debug("MainWindow::enter_root_dir-> Updating showCode_comboBox with: %s" % showList)
+
+
+    def selected_show_code(self):
+
+        # Retrieve string of selected comboBox index
+        index = self.showCode_comboBox.currentIndex() 
+        inputShowCode = self.showCode_comboBox.itemText(index)
+
         logging.debug("MainWindow::enter_show_code -> " + 
                         "from FileManger calling set_show_code method " + 
                         "with parameter: " + inputShowCode)
 
         self.fileMan.set_show_code(inputShowCode)
 
+        # Updating shot comboBox
         self.shotCode_comboBox.setCurrentIndex(-1)
         shotList = self.fileMan.get_shots_list()
         self.shotCodeModel.shots = shotList
@@ -84,6 +103,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         logging.debug("MainWindow::enter_show_code-> Updating shotCode_comboBox with: %s" % shotList)
 
     def selected_shot_code(self): 
+
+        # Retrieve string of selected comboBox index
         index = self.shotCode_comboBox.currentIndex()
         inputShotCode = self.shotCode_comboBox.itemText(index)
 

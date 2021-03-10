@@ -42,27 +42,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="showCode_lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>420</y>
-      <width>401</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="placeholderText">
-     <string>Enter Show Code</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="enter_shotinfo_pushButton">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>510</y>
+      <x>220</x>
+      <y>500</y>
       <width>181</width>
       <height>31</height>
      </rect>
@@ -103,7 +87,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="Shot_label">
+   <widget class="QLabel" name="shot_label">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -121,7 +105,7 @@
      <string>Shot: </string>
     </property>
    </widget>
-   <widget class="QLabel" name="Show_label">
+   <widget class="QLabel" name="show_label">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -155,6 +139,16 @@
     </property>
     <property name="text">
      <string>Directory:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="showCode_comboBox">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>420</y>
+      <width>401</width>
+      <height>31</height>
+     </rect>
     </property>
    </widget>
   </widget>
