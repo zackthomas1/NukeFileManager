@@ -6,7 +6,9 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import * 
 
 from __QtFiles__.NukeFileMangerGUI_v002 import Ui_MainWindow
+
 from modules.ShotBrowser import ShotBrowser
+from modules.Utilities import Utilities
 
 from modules.dataModels.ScriptsListModel import ScriptsListModel
 from modules.dataModels.ShotCodeModel import ShotCodeModel
@@ -35,12 +37,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.shotCodeModel = ShotCodeModel()
         self.shotCode_comboBox.setModel(self.shotCodeModel)
 
+        # Load json files 
+        # ----------------
+        rootDirSaveFile = "C:\\Dev\\Python\\PracticeProjects\\NukeFileManager\\json\\rootDirSave.json" # Remove absolute path
+        if Utilities.load_json(rootDirSaveFile) != None:
+            self.rootDir_lineEdit.setText(Utilities.load_json(rootDirSaveFile))
+            self.entered_root_dir()
+
         # UI_MainWindow Style adjustments
         # -------------------------------
         
         # Slot-Signal connections 
         # -----------------------
-
         self.nkFiles_listView.doubleClicked.connect(self.calling_launch_nukeindie)
 
         self.rootDir_lineEdit.editingFinished.connect(self.entered_root_dir)

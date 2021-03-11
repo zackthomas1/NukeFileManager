@@ -3,6 +3,8 @@ import logging
 import subprocess 
 import os
 
+from modules.Utilities import Utilities
+
 class ShotBrowser(): 
     
     # Instant Variables
@@ -13,7 +15,7 @@ class ShotBrowser():
 
     scriptFiles = []
 
-    exePath = "C:\\Program Files\\Nuke12.2v5\\Nuke12.2.exe --indie"   
+    exePath = "C:\\Program Files\\Nuke12.2v5\\Nuke12.2.exe --indie" # Remove absolute path
     
     def __init__(self): 
         pass
@@ -31,10 +33,13 @@ class ShotBrowser():
         
     def set_root_dir(self, inputDirPath):
         """ """
-        
+        # Files path to save json file with root directory
+        jsonFile = "C:\\Dev\\Python\\PracticeProjects\\NukeFileManager\\json\\rootDirSave.json" # Remove absolute path
+
         if os.path.isdir(inputDirPath): 
             self.rootDir = inputDirPath
             logging.debug ("ShotBrowser::set_root_dir-> pathDirName: %s" % self.rootDir)
+            Utilities.save_json(jsonFile, self.rootDir) # Saves root directory path to a json file
         else: 
             logging.error("ERROR << ShotBrowser::set_root_dir-> '%s' is not valid path" % inputDirPath)
             raise Exception
