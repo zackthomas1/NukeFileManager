@@ -1,15 +1,23 @@
+# 
 import sys
 import logging
 
+# pyside2 
 from PySide2.QtCore import *
 from PySide2.QtGui import * 
 from PySide2.QtWidgets import * 
 
+# GUI from Qt Designer
 from __QtFiles__.NukeFileMangerGUI_v004 import Ui_MainWindow
 
+#
+from app.DirectoryDialogWindow import DirectoryDialog
+
+#
 from modules.ScriptsBrowser import ScriptsBrowser
 from modules.Utilities import Utilities
 
+# Data Models
 from modules.dataModels.ScriptsListModel import ScriptsListModel
 from modules.dataModels.ShotCodeModel import ShotCodeModel
 from modules.dataModels.ShowCodeModel import ShowCodeModel
@@ -19,16 +27,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     scriptsBrowser = ScriptsBrowser()
 
     def __init__(self): 
+        logging.debug("MainWindow::__init__-> initalizing MainWindow class")
         super().__init__()
         self.setupUi(self)
         self.show()
 
+        # Set up dialog windows
+        # -------------------------
+        self.directoryDialog = DirectoryDialog() 
+      
         # Set up scripts list view model 
         # ------------------------------
-        # Script list view    
-        self.scriptsViewModel = ScriptsListModel()
-        self.scripts_listView.setModel(self.scriptsViewModel)
-
         # Show comboBox
         self.showCodeModel = ShowCodeModel() 
         self.showCode_comboBox.setModel(self.showCodeModel)
@@ -37,12 +46,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.shotCodeModel = ShotCodeModel()
         self.shotCode_comboBox.setModel(self.shotCodeModel)
 
+        # Script list view    
+        self.scriptsViewModel = ScriptsListModel()
+        self.scripts_listView.setModel(self.scriptsViewModel)
+
         # Load json files 
         # ----------------
         # load saved root directory
         rootDirSaveFile = "C:\\Dev\\Python\\PracticeProjects\\NukeFileManager\\json\\rootDirSave.json" # Remove absolute path
-        if Utilities.load_json(rootDirSaveFile) != None:
-            self.rootDir_lineEdit.setText(Utilities.load_json(rootDirSaveFile))
+        rootDirSave = Utilities.load_json(rootDirSaveFile)
+        if rootDirSave != None:
+            self.rootDir_lineEdit.setText(rootDirSave)
             self.entered_root_dir()
 
         # UI_MainWindow Style adjustments
@@ -50,6 +64,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # Slot-Signal connections 
         # -----------------------
+        # Menu
+        self.actionSet_Root_Directory.triggered.connect(self.open_root_dir_dialog) 
+
+        # Shot Browser
         self.scripts_listView.doubleClicked.connect(self.calling_launch_nukeindie)
 
         self.rootDir_lineEdit.editingFinished.connect(self.entered_root_dir)
@@ -60,9 +78,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.launchNukeIndie_pushButton.pressed.connect(self.calling_launch_nukeindie)
 
+    def open_root_dir_dialog(self): 
+        """Show/hide root directory dialog window""" 
+        logging.debug("MainWindow::open_root_dir_dialog->calling DirectoryDialog class")
+
+        if self.directoryDialog.isVisible():
+            self.directoryDialog.hide()
+        else: 
+            self.directoryDialog.show()
+        
     def entered_root_dir(self): 
         inputRootDir = self.rootDir_lineEdit.text()
-        logging.debug("MainWindow::entered_root_dir -> " + 
+        logging.debug("MainWindow::entered_root_dir-> " + 
                         "ScriptsBrowser.set_root_dir() method " + 
                         "with parameter: %s" % inputRootDir)
 
