@@ -9,7 +9,7 @@ class ScriptsListModel(QAbstractListModel):
     def __init__(self, scripts = None):
         super().__init__()
         self.scripts = scripts or [] 
-        logging.debug("ScriptsListViewModel::__init__-> Initiating Scripts listView Model")
+        logging.debug("ScriptsListModel::__init__-> Initiating scripts listView Model")
 
     def data(self, index, role): 
         if role == Qt.DisplayRole: 

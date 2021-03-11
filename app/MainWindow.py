@@ -6,14 +6,15 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import * 
 
 from __QtFiles__.NukeFileMangerGUI_v002 import Ui_MainWindow
-from modules.FileManger import FileManger
-from modules.ScriptsListModel import ScriptsListModel
-from modules.ShotCodeModel import ShotCodeModel
-from modules.ShowCodeModel import ShowCodeModel
+from modules.ShotBrowser import ShotBrowser
+
+from modules.dataModels.ScriptsListModel import ScriptsListModel
+from modules.dataModels.ShotCodeModel import ShotCodeModel
+from modules.dataModels.ShowCodeModel import ShowCodeModel
 
 class MainWindow(QMainWindow, Ui_MainWindow): 
 
-    fileMan = FileManger()
+    shotBrowser = ShotBrowser()
 
     def __init__(self): 
         super().__init__()
@@ -52,18 +53,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def entered_root_dir(self): 
         inputRootDir = self.rootDir_lineEdit.text()
-        logging.debug("MainWindow::enter_root_dir -> " + 
-                        "from FileManger calling set_path_baseName method " + 
+        logging.debug("MainWindow::entered_root_dir -> " + 
+                        "from ShotBrowser calling set_root_dir method " + 
                         "with parameter: %s" % inputRootDir)
 
-        self.fileMan.set_root_dir(inputRootDir)
+        self.shotBrowser.set_root_dir(inputRootDir)
 
         # Updating show comboBox
         self.showCode_comboBox.setCurrentIndex(-1)
-        showList = self.fileMan.get_shows_list()
+        showList = self.shotBrowser.get_shows_list()
         self.showCodeModel.shows = showList
         self.showCodeModel.layoutChanged.emit()
-        logging.debug("MainWindow::enter_root_dir-> Updating showCode_comboBox with: %s" % showList)
+        logging.debug("MainWindow::entered_root_dir-> Updating showCode_comboBox with: %s" % showList)
 
     def selected_show_code(self):
 
@@ -71,18 +72,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         index = self.showCode_comboBox.currentIndex() 
         inputShowCode = self.showCode_comboBox.itemText(index)
 
-        logging.debug("MainWindow::enter_show_code -> " + 
-                        "from FileManger calling set_show_code method " + 
+        logging.debug("MainWindow::selected_show_code -> " + 
+                        "from ShotBrowser calling set_show_code method " + 
                         "with parameter: %s" % inputShowCode)
 
-        self.fileMan.set_show_code(inputShowCode)
+        self.shotBrowser.set_show_code(inputShowCode)
 
         # Updating shot comboBox
         self.shotCode_comboBox.setCurrentIndex(-1)
-        shotList = self.fileMan.get_shots_list()
+        shotList = self.shotBrowser.get_shots_list()
         self.shotCodeModel.shots = shotList
         self.shotCodeModel.layoutChanged.emit()
-        logging.debug("MainWindow::enter_show_code-> Updating shotCode_comboBox with: %s" % shotList)
+        logging.debug("MainWindow::selected_show_code-> Updating shotCode_comboBox with: %s" % shotList)
 
     def selected_shot_code(self): 
 
@@ -90,16 +91,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         index = self.shotCode_comboBox.currentIndex()
         inputShotCode = self.shotCode_comboBox.itemText(index)
 
-        logging.debug("MainWindow::enter_shot_code -> " + 
-                        "from FileManger calling set_shot_code method " +
+        logging.debug("MainWindow::selected_shot_code-> " + 
+                        "from ShotBrowser calling set_shot_code method " +
                         "with parameter: %s" % str(inputShotCode))
-        self.fileMan.set_shot_code(inputShotCode)
+        self.shotBrowser.set_shot_code(inputShotCode)
 
     def calling_update_shotList(self): 
         logging.debug("MainWindow::calling_update_shotList -> " + 
-                        "from FileManger calling update_shotList() method ")
+                        "from ShotBrowser calling update_shotList() method ")
 
-        self.scriptsViewModel.scripts = self.fileMan.update_shotList()
+        self.scriptsViewModel.scripts = self.shotBrowser.update_shotList()
         self.scriptsViewModel.layoutChanged.emit()
         logging.debug("MainWindow::calling_update_shotList-> scriptsViewModel Updated")
 
@@ -113,10 +114,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             index = indexes[0]
             scriptName = self.scriptsViewModel.scripts[index.row()]
             logging.debug("MainWindow::calling_launch_nukeindie-> " +
-                            "from FileManger executing launch_nukeindie method " + 
+                            "from ShotBrowser executing launch_nukeindie method " + 
                             "with parameter %s" % scriptName)
-            self.fileMan.launch_nukeindie(scriptName)
+            self.shotBrowser.launch_nukeindie(scriptName)
         else:
             logging.debug("MainWindow:: calling_launch_nukeindie-> " +
-                            "from FileManger executing launch_nukeindie method")
-            self.fileMan.launch_nukeindie()
+                            "from ShotBrowser executing launch_nukeindie method")
+            self.shotBrowser.launch_nukeindie()

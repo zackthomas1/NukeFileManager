@@ -9,7 +9,7 @@ class ShotCodeModel(QAbstractListModel):
     def __init__(self, shots = None):
         super().__init__()
         self.shots = shots or [] 
-        logging.debug("ShotCodeViewModel::__init__-> Initializing shot code model")
+        logging.debug("ShotCodeModel::__init__-> Initializing shot code model")
 
     def data(self, index, role): 
         if role == Qt.DisplayRole: 

@@ -3,7 +3,7 @@ import logging
 import subprocess 
 import os
 
-class FileManger(): 
+class ShotBrowser(): 
     
     # Instant Variables
     rootDir = ""
@@ -34,40 +34,40 @@ class FileManger():
         
         if os.path.isdir(inputDirPath): 
             self.rootDir = inputDirPath
-            logging.debug ("FileManger::set_root_dir-> pathDirName: %s" % self.rootDir)
+            logging.debug ("ShotBrowser::set_root_dir-> pathDirName: %s" % self.rootDir)
         else: 
-            logging.error("ERROR << FileManger::set_root_dir-> '%s' is not valid path" % inputDirPath)
+            logging.error("ERROR << ShotBrowser::set_root_dir-> '%s' is not valid path" % inputDirPath)
             raise Exception
 
     def set_show_code(self, inputShowCode): 
         """ """ 
         if os.path.isdir(os.path.join(self.rootDir, inputShowCode)):
             self.showCode = inputShowCode 
-            logging.debug ("FileManger::set_show_code-> showCode: %s" % self.showCode)
+            logging.debug ("ShotBrowser::set_show_code-> showCode: %s" % self.showCode)
         else: 
-            logging.error("ERROR << FileManger::set_show_code-> '%s' not vaild path" % os.path.join(self.rootDir, inputShowCode))
+            logging.error("ERROR << ShotBrowser::set_show_code-> '%s' not vaild path" % os.path.join(self.rootDir, inputShowCode))
             raise Exception
 
     def set_shot_code(self, inputShotCode):  
         
         self.shotCode = inputShotCode
-        logging.debug("FileManger::set_shot_code-> shotCode: %s" % self.shotCode)
+        logging.debug("ShotBrowser::set_shot_code-> shotCode: %s" % self.shotCode)
 
     def get_shows_list(self): 
         """Returns a list of shows in the root directory"""
 
         showsDir = self.rootDir
-        logging.debug("FileManger:::get_shows_list-> %s" % showsDir)
+        logging.debug("ShotBrowser:::get_shows_list-> Searching dir: %s" % showsDir)
 
         showsList = os.listdir(showsDir)
 
         # Remove any folder with "_sample_" syntax these are templates for other folder/development folders 
         for show in showsList: 
             if show.startswith("_") and show.endswith("_"):
-                logging.debug("FileManger::get_shows_list-> removed '%s' for shotsList" % show)
+                logging.debug("ShotBrowser::get_shows_list-> removed '%s' for showsList" % show)
                 showsList.remove(show) 
 
-        logging.debug("FileManger::get_shows_list-> %s" % str(showsList))
+        logging.debug("ShotBrowser::get_shows_list-> returned %s" % str(showsList))
         return showsList
 
     def get_shots_list(self):
@@ -77,17 +77,17 @@ class FileManger():
                                     os.path.join(self.showCode, "Scripts"
                                                 )
                                 )
-        logging.debug("FileManger:::get_shots_list-> %s" % scriptsDir)
+        logging.debug("ShotBrowser:::get_shots_list-> Searching dir: %s" % scriptsDir)
 
         shotsList = os.listdir(scriptsDir)
 
         # Remove any folder with "_sample_" syntax these are templates for other folder/development folders
         for shot in shotsList: 
             if shot.startswith("_") and shot.endswith("_"): 
-                logging.debug("FileManger::get_shots_list-> removed '%s' for shotsList" % shot)
+                logging.debug("ShotBrowser::get_shots_list-> removed '%s' for shotsList" % shot)
                 shotsList.remove(shot)     
 
-        logging.debug("FileManger::get_shots_list-> %s" % str(shotsList))
+        logging.debug("ShotBrowser::get_shots_list-> returned %s" % str(shotsList))
         return shotsList
 
     def update_shotList(self): 
@@ -100,10 +100,10 @@ class FileManger():
                                             os.path.join("Scripts", self.shotCode)
                                             )
                                 ) 
-        logging.debug("FileManger::update_shotList-> shotPath: %s" % self.shotScriptsDir)
+        logging.debug("ShotBrowser::update_shotList-> shotPath: %s" % self.shotScriptsDir)
         
         self.scriptFiles = os.listdir(self.shotScriptsDir) 
-        logging.debug("FileManger::update_shotList-> return: %s" % str(self.scriptFiles))
+        logging.debug("ShotBrowser::update_shotList-> return: %s" % str(self.scriptFiles))
 
         return self.scriptFiles
 
@@ -111,7 +111,7 @@ class FileManger():
         """Opens selected script with instance of nuke indie"""
 
         nkScript = os.path.join(self.shotScriptsDir, scriptName)
-        logging.debug("FileManger::doubleClick_launch_script_nukeIndie-> nkScript: \'%s\'" % nkScript)
+        logging.debug("ShotBrowser::doubleClick_launch_script_nukeIndie-> nkScript: \'%s\'" % nkScript)
 
         subprocess.Popen("%s %s" % (self.exePath, nkScript))
 
