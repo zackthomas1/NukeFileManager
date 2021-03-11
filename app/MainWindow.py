@@ -39,6 +39,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Load json files 
         # ----------------
+        # load saved root directory
         rootDirSaveFile = "C:\\Dev\\Python\\PracticeProjects\\NukeFileManager\\json\\rootDirSave.json" # Remove absolute path
         if Utilities.load_json(rootDirSaveFile) != None:
             self.rootDir_lineEdit.setText(Utilities.load_json(rootDirSaveFile))

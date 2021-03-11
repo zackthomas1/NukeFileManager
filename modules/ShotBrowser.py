@@ -13,7 +13,7 @@ class ShotBrowser():
     shotCode = ""
     shotScriptsDir = ""
 
-    scriptFiles = []
+    scriptList = []
 
     exePath = "C:\\Program Files\\Nuke12.2v5\\Nuke12.2.exe --indie" # Remove absolute path
     
@@ -88,8 +88,8 @@ class ShotBrowser():
 
         # Remove any folder with "_sample_" syntax these are templates for other folder/development folders
         for shot in shotsList: 
-            if shot.startswith("_") and shot.endswith("_"): 
-                logging.debug("ShotBrowser::get_shots_list-> removed '%s' for shotsList" % shot)
+            if (shot.startswith("_") and shot.endswith("_")): 
+                logging.debug("ShotBrowser::get_shots_list-> removed '%s' from shotsList" % shot)
                 shotsList.remove(shot)     
 
         logging.debug("ShotBrowser::get_shots_list-> returned %s" % str(shotsList))
@@ -107,10 +107,17 @@ class ShotBrowser():
                                 ) 
         logging.debug("ShotBrowser::update_shotList-> shotPath: %s" % self.shotScriptsDir)
         
-        self.scriptFiles = os.listdir(self.shotScriptsDir) 
-        logging.debug("ShotBrowser::update_shotList-> return: %s" % str(self.scriptFiles))
+        self.scriptList = os.listdir(self.shotScriptsDir) 
+        
+        for script in self.scriptList:
+            if script.endswith(".autosave") or script.endswith('~'):
+                logging.debug("ShotBrowser::update_shotList-> removed '%s' from shotsList" % script)
+                self.scriptList.remove(script) 
 
-        return self.scriptFiles
+
+        logging.debug("ShotBrowser::update_shotList-> return: %s" % str(self.scriptList))
+
+        return self.scriptList
 
     def doubleClick_launch_script_nukeIndie(self, scriptName): 
         """Opens selected script with instance of nuke indie"""
