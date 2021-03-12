@@ -25,8 +25,12 @@ class DirectoryDialog(QDialog, Ui_Directory_Dialog):
     def clicked_ok(self): 
         """ """ 
         inputRootDir = self.directory_lineEdit.text()
-
         logging.debug("DirectoryDialogWindow::clicked_ok-> ")
+
+        # Clear scripts_listView 
+        if self.scriptsViewModel.scripts != []: 
+            self.scriptsViewModel.scripts = [] 
+            self.scriptsViewModel.layoutChanged.emit()
 
     def clicked_cancel(self): 
         """ """ 

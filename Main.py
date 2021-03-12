@@ -1,7 +1,5 @@
 #! python 3
 
-#
-
 import sys
 import logging
 from PySide2.QtWidgets import *
@@ -16,10 +14,8 @@ logging.basicConfig(level=logging.DEBUG, format='\t%(asctime)s.%(msecs)03d: %(me
 if __name__ == "__main__": 
     app = QApplication(sys.argv)
 
-    w = MainWindow() 
-    
+    w = MainWindow()  
     w.show() 
 
     app.exec_()
     logging.info("Main:: -> EXIT: Closing window")
-

@@ -131,7 +131,7 @@
       </font>
      </property>
     </widget>
-    <widget class="QPushButton" name="enter_shotinfo_pushButton">
+    <widget class="QPushButton" name="updateScriptsList_pushButton">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -146,7 +146,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Update Shot List</string>
+      <string>Update Scripts List</string>
      </property>
     </widget>
     <widget class="QPushButton" name="launchNukeIndie_pushButton">

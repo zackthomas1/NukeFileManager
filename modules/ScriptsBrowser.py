@@ -59,44 +59,48 @@ class ScriptsBrowser():
         self.shotCode = inputShotCode
         logging.debug("ScriptsBrowser::set_shot_code-> shotCode: %s" % self.shotCode)
 
-    def get_shows_list(self): 
+    def update_shows_list(self, dataModel): 
         """Returns a list of shows in the root directory"""
 
         showsDir = self.rootDir
-        logging.debug("ScriptsBrowser:::get_shows_list-> Searching dir: %s" % showsDir)
-
-        showsList = os.listdir(showsDir)
+        logging.debug("ScriptsBrowser:::update_shows_list-> Searching dir: %s" % showsDir)
+ 
+        dataModel.shows = os.listdir(showsDir)
 
         # Remove any folder with "_sample_" syntax these are templates for other folder/development folders 
-        for show in showsList: 
+        for show in dataModel.shows: 
             if show.startswith("_") and show.endswith("_"):
-                logging.debug("ScriptsBrowser::get_shows_list-> removed '%s' for showsList" % show)
-                showsList.remove(show) 
+                logging.debug("ScriptsBrowser::update_shows_list-> removed '%s' from dataModel.shows" % show)
+                dataModel.shows.remove(show) 
 
-        logging.debug("ScriptsBrowser::get_shows_list-> returned %s" % str(showsList))
-        return showsList
+        logging.debug("ScriptsBrowser::update_shows_list-> returned %s" % str(dataModel.shows))
+        # return dataModel.shows
 
-    def get_shots_list(self):
+    def update_shots_list(self, dataModel):
         """Returns a list of shots in show directory scripts folder""" 
 
         scriptsDir = os.path.join(self.rootDir, 
                                     os.path.join(self.showCode, "Scripts"
                                                 )
                                 )
-        logging.debug("ScriptsBrowser:::get_shots_list-> Searching dir: %s" % scriptsDir)
+        logging.debug("ScriptsBrowser:::update_shots_list-> Searching dir: %s" % scriptsDir)
 
-        shotsList = os.listdir(scriptsDir)
+        if os.path.isdir(scriptsDir):
+            dataModel.shots = os.listdir(scriptsDir)
+        else: 
+            logging.error("ERROR << ScriptsBrowser::update_shots_list-> '%s' is invalid shots path" % scriptsDir)
+            raise Exception
 
         # Remove any folder with "_sample_" syntax these are templates for other folder/development folders
-        for shot in shotsList: 
+        for shot in dataModel.shots: 
             if (shot.startswith("_") and shot.endswith("_")): 
-                logging.debug("ScriptsBrowser::get_shots_list-> removed '%s' from shotsList" % shot)
-                shotsList.remove(shot)     
+                logging.debug("ScriptsBrowser::update_shots_list-> removed '%s' from dataModel.shots" % shot)
+                dataModel.shots.remove(shot)     
 
-        logging.debug("ScriptsBrowser::get_shots_list-> returned %s" % str(shotsList))
-        return shotsList
+        logging.debug("ScriptsBrowser::update_shots_list-> returned %s" % str(dataModel.shots))
+        #return dataModel
 
-    def update_scriptsList(self): 
+    def update_scripts_list(self, dataModel): 
         """Takes instance variables(rootDir, showCode, shotCode) returns data structure
             to be displayed in nkFiles_listView """
         
@@ -105,26 +109,25 @@ class ScriptsBrowser():
                                             os.path.join("Scripts", self.shotCode)
                                             )
                                 )
-        logging.debug("ScriptsBrowser::update_shotList-> shotPath: %s" % self.shotScriptsDir)
+        logging.debug("ScriptsBrowser::update_scripts_list-> shotPath: %s" % self.shotScriptsDir)
 
-        # if user didn't input a shot code and is trying to update the scripts list with just a show code set 
-        # or didn't set 
+        # if user didn't set a shot code and is trying to update the scripts list
+        # or didn't set the show code and is trying to update the scripts list 
         if self.shotScriptsDir.endswith("\\Scripts\\") or os.path.isdir(self.shotScriptsDir) != True: 
-            logging.error("Error << ScriptsBrowser::update_shotList-> '%s' is not valid path to nuke scripts" % self.shotScriptsDir)
+            logging.error("Error << ScriptsBrowser::update_scripts_list-> '%s' is not valid path to nuke scripts" % self.shotScriptsDir)
             raise Exception
         
-        self.scriptList = os.listdir(self.shotScriptsDir) 
+
+        dataModel.scripts = os.listdir(self.shotScriptsDir) 
         
         # Remove .autosave files from list
-        for script in self.scriptList:
+        for script in dataModel.scripts:
             if script.endswith(".autosave") or script.endswith('~') or script.startswith("_"):
-                logging.debug("ScriptsBrowser::update_shotList-> removed '%s' from shotsList" % script)
-                self.scriptList.remove(script) 
+                logging.debug("ScriptsBrowser::update_scripts_list-> removed '%s' from dataModel.scripts" % script)
+                dataModel.scripts.remove(script) 
 
-
-        logging.debug("ScriptsBrowser::update_shotList-> return: %s" % str(self.scriptList))
-
-        return self.scriptList
+        logging.debug("ScriptsBrowser::update_scripts_list-> return: %s" % str(dataModel.scripts))
+        # return self.scriptList
 
     def doubleClick_launch_script_nukeIndie(self, scriptName): 
         """Opens selected script with instance of nuke indie"""

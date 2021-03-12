@@ -18,6 +18,7 @@ from modules.ScriptsBrowser import ScriptsBrowser
 from modules.Utilities import Utilities
 
 # Data Models
+from modules.dataModels.RootDirectoryModel import RootDirectoryModel
 from modules.dataModels.ScriptsListModel import ScriptsListModel
 from modules.dataModels.ShotCodeModel import ShotCodeModel
 from modules.dataModels.ShowCodeModel import ShowCodeModel
@@ -38,6 +39,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
       
         # Set up scripts list view model 
         # ------------------------------
+        # Root Directory Model
+        self.rootDirModel = RootDirectoryModel()
+
         # Show comboBox
         self.showCodeModel = ShowCodeModel() 
         self.showCode_comboBox.setModel(self.showCodeModel)
@@ -54,9 +58,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # ----------------
         # load saved root directory
         rootDirSaveFile = "C:\\Dev\\Python\\PracticeProjects\\NukeFileManager\\json\\rootDirSave.json" # Remove absolute path
-        rootDirSave = Utilities.load_json(rootDirSaveFile)
-        if rootDirSave != None:
-            self.rootDir_lineEdit.setText(rootDirSave)
+        self.rootDirModel.directory = Utilities.load_json(rootDirSaveFile)
+        if self.rootDirModel.directory != None:
+            self.rootDir_lineEdit.setText(self.rootDirModel.directory)
             self.entered_root_dir()
 
         # UI_MainWindow Style adjustments
@@ -67,14 +71,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Menu
         self.actionSet_Root_Directory.triggered.connect(self.open_root_dir_dialog) 
 
-        # Shot Browser
+        # Scripts browser
         self.scripts_listView.doubleClicked.connect(self.calling_launch_nukeindie)
 
         self.rootDir_lineEdit.editingFinished.connect(self.entered_root_dir)
         self.showCode_comboBox.currentIndexChanged.connect(self.selected_show_code)
         self.shotCode_comboBox.currentIndexChanged.connect(self.selected_shot_code)
 
-        self.enter_shotinfo_pushButton.pressed.connect(self.calling_update_scriptsList)
+        self.updateScriptsList_pushButton.pressed.connect(self.calling_update_scriptsList)
 
         self.launchNukeIndie_pushButton.pressed.connect(self.calling_launch_nukeindie)
 
@@ -88,24 +92,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.directoryDialog.show()
         
     def entered_root_dir(self): 
-        inputRootDir = self.rootDir_lineEdit.text()
+        self.rootDirModel.directory = self.rootDir_lineEdit.text()
         logging.debug("MainWindow::entered_root_dir-> " + 
-                        "ScriptsBrowser.set_root_dir() method " + 
-                        "with parameter: %s" % inputRootDir)
+                    "ScriptsBrowser.set_root_dir() method " + 
+                    "with parameter: %s" % self.rootDirModel.directory)
 
-        self.scriptsBrowser.set_root_dir(inputRootDir)
-        
-        # Clear scripts_listView 
+        try:
+            self.scriptsBrowser.set_root_dir(self.rootDirModel.directory)
+
+            # Update show_comboBox
+            self.showCode_comboBox.setCurrentIndex(-1)
+            self.scriptsBrowser.update_shows_list(self.showCodeModel)
+            self.showCodeModel.layoutChanged.emit()
+            logging.debug("MainWindow::entered_root_dir-> " +
+                    "Updating showCode_comboBox with: %s" % self.showCodeModel.shows)
+        except Exception: 
+            self.rootDir_lineEdit.setText("")
+            self.showCode_comboBox.setCurrentIndex(-1)
+            self.showCodeModel.shows= []
+            self.showCodeModel.layoutChanged.emit()
+            self.shotCode_comboBox.setCurrentIndex(-1)
+            self.shotCodeModel.shots = []
+            self.shotCodeModel.layoutChanged.emit()
+            logging.error("ERROR << MainWindow::entered_root_dir-> " + 
+                    "could not obtain valid root director from ScriptsBrowser.set_root_dir()")
+
+        # Clear scripts_listView if root directory is updated 
         if self.scriptsViewModel.scripts != []: 
             self.scriptsViewModel.scripts = [] 
             self.scriptsViewModel.layoutChanged.emit()
-
-        # Updating show comboBox
-        self.showCode_comboBox.setCurrentIndex(-1)
-        showList = self.scriptsBrowser.get_shows_list()
-        self.showCodeModel.shows = showList
-        self.showCodeModel.layoutChanged.emit()
-        logging.debug("MainWindow::entered_root_dir-> Updating showCode_comboBox with: %s" % showList)
 
     def selected_show_code(self):
 
@@ -120,11 +135,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.scriptsBrowser.set_show_code(inputShowCode)
 
         # Updating shot comboBox
-        self.shotCode_comboBox.setCurrentIndex(-1)
-        shotList = self.scriptsBrowser.get_shots_list()
-        self.shotCodeModel.shots = shotList
-        self.shotCodeModel.layoutChanged.emit()
-        logging.debug("MainWindow::selected_show_code-> Updating shotCode_comboBox with: %s" % shotList)
+        try:
+            self.shotCode_comboBox.setCurrentIndex(-1)
+            self.scriptsBrowser.update_shots_list(self.shotCodeModel)
+            self.shotCodeModel.layoutChanged.emit()
+            logging.debug("MainWindow::selected_show_code-> Updating shotCode_comboBox with: ")
+        except Exception:
+            self.shotCodeModel.shots = []
+            self.shotCodeModel.layoutChanged.emit()
+            logging.error("ERROR << MainWindow::calling_update_shot_list-> "+
+                        "Unable to retrieve valid shots list from ScriptsBrowser.update_shot_list()")
 
     def selected_shot_code(self): 
 
@@ -142,14 +162,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         "calling ScriptsBrowser.update_shotList() method ")
 
         try:
-            self.scriptsViewModel.scripts = self.scriptsBrowser.update_scriptsList()
+            self.scriptsBrowser.update_scripts_list(self.scriptsViewModel)
             self.scriptsViewModel.layoutChanged.emit()
             logging.debug("MainWindow::calling_update_shotList-> scriptsViewModel Updated")
         except Exception: 
             self.scriptsViewModel.scripts = []
             self.scriptsViewModel.layoutChanged.emit()
-            logging.error("Error << MainWindow::calling_update_shotList-> "+
-                        "Unable to retrieve valid scripts list from ScriptsBrowser.update_shotList()")
+            logging.error("ERROR << MainWindow::calling_update_scripts_list-> "+
+                        "Unable to retrieve valid scripts list from ScriptsBrowser.update_scripts_list()")
 
     def calling_launch_nukeindie(self): 
         

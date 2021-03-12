@@ -5,7 +5,6 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import * 
 
 class ScriptsListModel(QAbstractListModel): 
-    
     def __init__(self, scripts = None):
         super().__init__()
         self.scripts = scripts or [] 
