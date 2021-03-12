@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Directory_Dialog</class>
- <widget class="QDialog" name="Directory_Dialog">
+ <class>Settings_Dialog</class>
+ <widget class="QDialog" name="Settings_Dialog">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -9,12 +9,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>476</width>
-    <height>159</height>
+    <width>480</width>
+    <height>150</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Directory Dialog</string>
+   <string>Settings Dialog</string>
   </property>
   <widget class="QLineEdit" name="directory_lineEdit">
    <property name="geometry">
@@ -42,13 +42,13 @@
     <rect>
      <x>20</x>
      <y>30</y>
-     <width>91</width>
+     <width>90</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="text">

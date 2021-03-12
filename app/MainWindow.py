@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from __QtFiles__.NukeFileMangerGUI_v005 import Ui_MainWindow
 
 #
-from app.DirectoryDialogWindow import DirectoryDialog
+from app.SettingsDialog import SettingsDialog
 
 #
 from modules.ScriptsBrowser import ScriptsBrowser
@@ -51,7 +51,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Set up dialog windows
         # -------------------------
-        self.directoryDialog = DirectoryDialog(self, self.scriptsBrowser) 
+        self.settingsDialog = SettingsDialog(self, self.scriptsBrowser) 
 
         # UI_MainWindow Style adjustments
         # -------------------------------
@@ -59,7 +59,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Slot-Signal connections 
         # -----------------------
         # Menu
-        self.openRootDirDialog_action.triggered.connect(self.open_root_dir_dialog) 
+        self.openSettings_action.triggered.connect(self.open_root_dir_dialog) 
 
         # Scripts browser
         self.scripts_listView.doubleClicked.connect(self.calling_launch_nukeindie)
@@ -75,10 +75,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Show/hide root directory dialog window""" 
         logging.debug("MainWindow::open_root_dir_dialog-> calling DirectoryDialog class")
 
-        if self.directoryDialog.isVisible():
-            self.directoryDialog.hide()
+        if self.settingsDialog.isVisible():
+            self.settingsDialog.hide()
         else: 
-            self.directoryDialog.show()
+            self.settingsDialog.show()
         
     def selected_show_code(self):
 
@@ -119,7 +119,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def calling_update_scripts_list(self): 
         logging.debug("MainWindow::calling_update_scripts_list -> " + 
                         "calling ScriptsBrowser.update_scripts_list() method ")
-        
+
         try:
             self.scriptsBrowser.update_scripts_list(self.scriptsViewModel)
             self.scriptsViewModel.layoutChanged.emit()

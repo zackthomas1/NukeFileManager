@@ -23,8 +23,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        self.openRootDirDialog_action = QAction(MainWindow)
-        self.openRootDirDialog_action.setObjectName(u"openRootDirDialog_action")
+        self.openSettings_action = QAction(MainWindow)
+        self.openSettings_action.setObjectName(u"openSettings_action")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -97,7 +97,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.file_menu.menuAction())
-        self.file_menu.addAction(self.openRootDirDialog_action)
+        self.file_menu.addAction(self.openSettings_action)
         self.file_menu.addSeparator()
 
         self.retranslateUi(MainWindow)
@@ -110,7 +110,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.openRootDirDialog_action.setText(QCoreApplication.translate("MainWindow", u"Set Root Directory", None))
+        self.openSettings_action.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.scriptBrowser_tab), QCoreApplication.translate("MainWindow", u"Script Browser", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.showBuilder_tab), QCoreApplication.translate("MainWindow", u"Show Builder", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.shotBuilder_tab), QCoreApplication.translate("MainWindow", u"Shot Builder", None))

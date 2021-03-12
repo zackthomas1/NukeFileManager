@@ -6,7 +6,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 # Gui
-from __QtFiles__.DirectoryDialog_v001 import Ui_Directory_Dialog
+from __QtFiles__.SettingDialog_v001 import Ui_Settings_Dialog
 
 # 
 from modules.Utilities import Utilities
@@ -16,7 +16,7 @@ from modules.dataModels.ScriptsListModel import ScriptsListModel
 from modules.dataModels.ShotCodeModel import ShotCodeModel
 from modules.dataModels.ShowCodeModel import ShowCodeModel
 
-class DirectoryDialog(QDialog, Ui_Directory_Dialog): 
+class SettingsDialog(QDialog, Ui_Settings_Dialog): 
     def __init__(self, MainWindowInstance, ScriptsBrowserInstance):
         logging.debug("DirectoryDialog::__init__-> initalizing MainWindow class")
         super().__init__()

@@ -214,15 +214,15 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="openRootDirDialog_action"/>
+    <addaction name="openSettings_action"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="file_menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="openRootDirDialog_action">
+  <action name="openSettings_action">
    <property name="text">
-    <string>Set Root Directory</string>
+    <string>Settings</string>
    </property>
   </action>
  </widget>
