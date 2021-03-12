@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'directoryDialog_v001.ui'
+## Form generated from reading UI file 'DirectoryDialog_v001.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -28,7 +28,7 @@ class Ui_Directory_Dialog(object):
         self.directory_lineEdit.setAlignment(Qt.AlignCenter)
         self.directory_label = QLabel(Directory_Dialog)
         self.directory_label.setObjectName(u"directory_label")
-        self.directory_label.setGeometry(QRect(20, 38, 91, 31))
+        self.directory_label.setGeometry(QRect(20, 30, 91, 51))
         font1 = QFont()
         font1.setPointSize(16)
         self.directory_label.setFont(font1)
@@ -43,8 +43,9 @@ class Ui_Directory_Dialog(object):
     # setupUi
 
     def retranslateUi(self, Directory_Dialog):
-        Directory_Dialog.setWindowTitle(QCoreApplication.translate("Directory_Dialog", u"Dialog", None))
+        Directory_Dialog.setWindowTitle(QCoreApplication.translate("Directory_Dialog", u"Directory Dialog", None))
         self.directory_lineEdit.setPlaceholderText(QCoreApplication.translate("Directory_Dialog", u"Enter Root Directory", None))
-        self.directory_label.setText(QCoreApplication.translate("Directory_Dialog", u"Directory:", None))
+        self.directory_label.setText(QCoreApplication.translate("Directory_Dialog", u"Root \n"
+"Directory:", None))
     # retranslateUi
 

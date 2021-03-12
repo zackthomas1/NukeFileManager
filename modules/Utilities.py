@@ -25,6 +25,6 @@ class Utilities():
             logging.debug("Utilities::load_json-> %s" % data_struct)
             return data_struct
         except Exception: 
-            logging.error("ERROR << Utiilites::load_json-> Unable to load json file.")
+            logging.error("ERROR << Utilites::load_json-> Unable to load json file.")
             return None
 

@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Directory Dialog</string>
   </property>
   <widget class="QLineEdit" name="directory_lineEdit">
    <property name="geometry">
@@ -41,9 +41,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>38</y>
+     <y>30</y>
      <width>91</width>
-     <height>31</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -52,7 +52,8 @@
     </font>
    </property>
    <property name="text">
-    <string>Directory:</string>
+    <string>Root 
+Directory:</string>
    </property>
   </widget>
   <widget class="QDialogButtonBox" name="ok_buttonBox">

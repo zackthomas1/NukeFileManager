@@ -61,11 +61,9 @@ class ScriptsBrowser():
 
     def update_shows_list(self, dataModel): 
         """Returns a list of shows in the root directory"""
-
-        showsDir = self.rootDir
-        logging.debug("ScriptsBrowser:::update_shows_list-> Searching dir: %s" % showsDir)
  
-        dataModel.shows = os.listdir(showsDir)
+        dataModel.shows = os.listdir(self.rootDir)
+        logging.debug("ScriptsBrowser:::update_shows_list-> Searching dir: %s" % self.rootDir)
 
         # Remove any folder with "_sample_" syntax these are templates for other folder/development folders 
         for show in dataModel.shows: 
