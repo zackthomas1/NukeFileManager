@@ -29,24 +29,27 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
         # Load json files 
         # ----------------
         # load saved root directory
-        rootDirSaveFile = "C:\\Dev\\Python\\PracticeProjects\\NukeFileManager\\json\\rootDirSave.json" # Remove absolute path
         try:
+            rootDirSaveFile = self.scriptsBrowserInstance.rootDirSaveFile
             self.mainWindowInstance.rootDirModel.directory = Utilities.load_json(rootDirSaveFile)
-            self.directory_lineEdit.setText(self.mainWindowInstance.rootDirModel.directory)
+            self.rootDirectory_lineEdit.setText(self.mainWindowInstance.rootDirModel.directory)
             self.entered_root_dir()
         except Exception: 
             logging.error("ERROR << DirectoryDialog::__init__-> Utilites.load_json call failed")
 
 
+        # 
+        self.NukeExe_lineEdit.setText(self.scriptsBrowserInstance.exePath)
+
         # Slot-Signal connections 
-        # -----------------------
-        self.ok_buttonBox.accepted.connect(self.entered_root_dir)
+        # -----------------------  
+        self.ok_buttonBox.accepted.connect(self.enter_confirm_settings)
         self.ok_buttonBox.rejected.connect(self.close_directory_dialog_window)
 
     def entered_root_dir(self): 
         """ """ 
         try:
-            self.scriptsBrowserInstance.set_root_dir(self.directory_lineEdit.text())
+            self.scriptsBrowserInstance.set_root_dir(self.rootDirectory_lineEdit.text())
 
             # Update show_comboBox
             self.mainWindowInstance.showCode_comboBox.setCurrentIndex(-1)
@@ -63,7 +66,6 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
                 self.mainWindowInstance.shotCodeModel.layoutChanged.emit()
                 logging.debug("DirectoryDialogWindow::entered_root_dir-> " +
                         "Emptying shotCode_comboBox.")
-            self.hide() 
 
         except Exception:
 
@@ -82,6 +84,21 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
         if self.mainWindowInstance.scriptsViewModel.scripts != []: 
             self.mainWindowInstance.scriptsViewModel.scripts = [] 
             self.mainWindowInstance.scriptsViewModel.layoutChanged.emit()
+
+    def enter_nuke_exe_path(self): 
+        """ """
+        logging.debug("SettingsDialog::enter_nuke_exe_path-> " + 
+                    "calling ScriptsBrowser.set_nuke_exe_path" + 
+                    "with parameter '%s'" % self.NukeExe_lineEdit.text())
+        self.scriptsBrowserInstance.set_nuke_exe_path(self.NukeExe_lineEdit.text())
+
+
+    def enter_confirm_settings(self):
+
+        self.entered_root_dir() 
+        self.enter_nuke_exe_path()
+
+        self.hide()
 
     def close_directory_dialog_window(self): 
         """ """ 

@@ -15,31 +15,38 @@ class ScriptsBrowser():
 
     scriptList = []
 
-    exePath = "C:\\Program Files\\Nuke12.2v5\\Nuke12.2.exe --indie" # Remove absolute path
+    exePath = "C:\\Program Files\\Nuke12.2v5\\Nuke12.2.e --indie" # Remove absolute path        
+    rootDirSaveFile =  os.path.join(os.getcwd(), "json\\rootDirSave.json") # Files path to save json file with root directory  
     
     def __init__(self): 
         pass
   
+    def set_nuke_exe_path(self, exePath):
+        logging.debug("ScriptsBrowser::set_nuke_exe_path-> " 
+                    "setting nuke exe path to '%s'" % exePath)
+
+        self.exePath = exePath
+
     def launch_nukeindie(self, scriptName = None): 
         """Launches an instance of nuke indie application"""   
-
-        if scriptName != None:
-            nkScript = os.path.join(self.shotScriptsDir, scriptName)
-            subprocess.Popen("%s %s" % (self.exePath, nkScript))
-            logging.debug("ScriptsBrowser::launch_nukeindie->launching nuke nkScript: \'%s\'" % nkScript)
-        else: 
-            subprocess.Popen(self.exePath)
-            logging.debug("ScriptsBrowser::launch_nukeindie-> launching nuke")
+        try: 
+            if scriptName != None:
+                nkScript = os.path.join(self.shotScriptsDir, scriptName)
+                subprocess.Popen("%s %s" % (self.exePath, nkScript))
+                logging.debug("ScriptsBrowser::launch_nukeindie->launching nuke nkScript: \'%s\'" % nkScript)
+            else: 
+                subprocess.Popen(self.exePath)
+                logging.debug("ScriptsBrowser::launch_nukeindie-> launching Nuke")
+        except Exception: 
+            logging.error("ERROR << ScriptsBrowser::launch_nukeindie -> Unable to launch Nuke")
         
     def set_root_dir(self, inputDirPath):
         """ """
-        # Files path to save json file with root directory
-        jsonFile = "C:\\Dev\\Python\\PracticeProjects\\NukeFileManager\\json\\rootDirSave.json" # Remove absolute path
 
         if os.path.isdir(inputDirPath): 
             self.rootDir = inputDirPath
             logging.debug ("ScriptsBrowser::set_root_dir-> pathDirName: %s" % self.rootDir)
-            Utilities.save_json(jsonFile, self.rootDir) # Saves root directory path to a json file
+            Utilities.save_json(self.rootDirSaveFile, self.rootDir) # Saves root directory path to a json file
         else: 
             logging.error("ERROR << ScriptsBrowser::set_root_dir-> '%s' is not valid path" % inputDirPath)
             raise Exception

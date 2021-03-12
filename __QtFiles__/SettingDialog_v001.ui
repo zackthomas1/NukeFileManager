@@ -9,17 +9,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>150</height>
+    <width>491</width>
+    <height>216</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Settings Dialog</string>
   </property>
-  <widget class="QLineEdit" name="directory_lineEdit">
+  <widget class="QLineEdit" name="rootDirectory_lineEdit">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>140</x>
      <y>40</y>
      <width>340</width>
      <height>30</height>
@@ -37,12 +37,12 @@
     <string>Enter Root Directory</string>
    </property>
   </widget>
-  <widget class="QLabel" name="directory_label">
+  <widget class="QLabel" name="rootDirectory_label">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>30</y>
-     <width>90</width>
+     <width>111</width>
      <height>51</height>
     </rect>
    </property>
@@ -52,21 +52,59 @@
     </font>
    </property>
    <property name="text">
-    <string>Root 
-Directory:</string>
+    <string>Root Directory:</string>
    </property>
   </widget>
   <widget class="QDialogButtonBox" name="ok_buttonBox">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>110</y>
+     <x>180</x>
+     <y>170</y>
      <width>156</width>
      <height>23</height>
     </rect>
    </property>
    <property name="standardButtons">
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="NukeExe_lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>90</y>
+     <width>340</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="placeholderText">
+    <string>Enter Path to Nuke Executable</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="NukeExe_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>80</y>
+     <width>111</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Nuke Exe Path:</string>
    </property>
   </widget>
  </widget>

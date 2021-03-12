@@ -1,6 +1,7 @@
 #! python 3
 
 import sys
+import os
 import logging
 from PySide2.QtWidgets import *
 from app.MainWindow import MainWindow
