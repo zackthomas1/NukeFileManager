@@ -24,7 +24,6 @@ from modules.dataModels.ShotCodeModel import ShotCodeModel
 from modules.dataModels.ShowCodeModel import ShowCodeModel
 
 class MainWindow(QMainWindow, Ui_MainWindow): 
-
     scriptsBrowser = ScriptsBrowser()
 
     def __init__(self): 
@@ -106,6 +105,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.showCodeModel.layoutChanged.emit()
             logging.debug("MainWindow::entered_root_dir-> " +
                     "Updating showCode_comboBox with: %s" % self.showCodeModel.shows)
+
         except Exception: 
             self.rootDir_lineEdit.setText("")
             self.showCode_comboBox.setCurrentIndex(-1)
@@ -129,8 +129,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         inputShowCode = self.showCode_comboBox.itemText(index)
 
         logging.debug("MainWindow::selected_show_code -> " + 
-                        "calling ScriptsBrowser.set_show_code() method " + 
-                        "with parameter: %s" % inputShowCode)
+                "calling ScriptsBrowser.set_show_code() method " + 
+                "with parameter: %s" % inputShowCode)
 
         self.scriptsBrowser.set_show_code(inputShowCode)
 
@@ -139,12 +139,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.shotCode_comboBox.setCurrentIndex(-1)
             self.scriptsBrowser.update_shots_list(self.shotCodeModel)
             self.shotCodeModel.layoutChanged.emit()
-            logging.debug("MainWindow::selected_show_code-> Updating shotCode_comboBox with: ")
+            logging.debug("MainWindow::selected_show_code-> " + 
+                    "Updating shotCode_comboBox with: %s" % inputShowCode)
         except Exception:
             self.shotCodeModel.shots = []
             self.shotCodeModel.layoutChanged.emit()
             logging.error("ERROR << MainWindow::calling_update_shot_list-> "+
-                        "Unable to retrieve valid shots list from ScriptsBrowser.update_shot_list()")
+                    "Unable to retrieve valid shots list from ScriptsBrowser.update_shot_list()")
 
     def selected_shot_code(self): 
 

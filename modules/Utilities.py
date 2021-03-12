@@ -18,12 +18,11 @@ class Utilities():
 
     @staticmethod
     def load_json(json_file): 
-        """ """ 
-        logging.debug("Utilities::load_json-> ")
-        
+        """ """    
         try: 
             with open(json_file, 'r') as file: 
                 data_struct = json.load(file)
+            logging.debug("Utilities::load_json-> %s" % data_struct)
             return data_struct
         except Exception: 
             logging.error("ERROR << Utiilites::load_json-> Unable to load json file.")
