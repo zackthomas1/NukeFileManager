@@ -18,21 +18,22 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(550, 800)
-        self.lineEdit = QLineEdit(Form)
-        self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setGeometry(QRect(160, 140, 340, 30))
-        self.label = QLabel(Form)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(40, 140, 101, 31))
+        self.EnterShotChode_lineEdit = QLineEdit(Form)
+        self.EnterShotChode_lineEdit.setObjectName(u"EnterShotChode_lineEdit")
+        self.EnterShotChode_lineEdit.setGeometry(QRect(140, 200, 340, 30))
         font = QFont()
         font.setPointSize(16)
-        self.label.setFont(font)
-        self.pushButton = QPushButton(Form)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(240, 200, 180, 30))
+        self.EnterShotChode_lineEdit.setFont(font)
+        self.shotCode_label = QLabel(Form)
+        self.shotCode_label.setObjectName(u"shotCode_label")
+        self.shotCode_label.setGeometry(QRect(30, 205, 101, 21))
+        self.shotCode_label.setFont(font)
+        self.CreateShot_pushButton = QPushButton(Form)
+        self.CreateShot_pushButton.setObjectName(u"CreateShot_pushButton")
+        self.CreateShot_pushButton.setGeometry(QRect(190, 250, 180, 30))
         font1 = QFont()
         font1.setPointSize(12)
-        self.pushButton.setFont(font1)
+        self.CreateShot_pushButton.setFont(font1)
 
         self.retranslateUi(Form)
 
@@ -41,7 +42,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Form", u"Shot Code:", None))
-        self.pushButton.setText(QCoreApplication.translate("Form", u"Create Shot Folder", None))
+        self.EnterShotChode_lineEdit.setPlaceholderText(QCoreApplication.translate("Form", u"Enter Shot Code", None))
+        self.shotCode_label.setText(QCoreApplication.translate("Form", u"Shot Code:", None))
+        self.CreateShot_pushButton.setText(QCoreApplication.translate("Form", u"Create Shot Folder", None))
     # retranslateUi
 

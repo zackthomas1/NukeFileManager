@@ -51,7 +51,6 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
         
         # Slot-Signal connections 
         # -----------------------
-
         # Scripts browser
         self.scripts_listView.doubleClicked.connect(self.calling_launch_nukeindie)
 
