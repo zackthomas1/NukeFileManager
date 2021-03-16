@@ -6,7 +6,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 # Gui
-from __QtFiles__.SettingDialog_v001 import Ui_Settings_Dialog
+from __QtFiles__.Dialogs.SettingDialog_v001 import Ui_Settings_Dialog
 
 # 
 from modules.Utilities import Utilities
@@ -43,6 +43,7 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
 
         # Slot-Signal connections 
         # -----------------------  
+        # self.NukeExe_lineEdit.selectionChanged.connect()
         self.ok_buttonBox.accepted.connect(self.enter_confirm_settings)
         self.ok_buttonBox.rejected.connect(self.close_directory_dialog_window)
 

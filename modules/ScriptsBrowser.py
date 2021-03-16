@@ -15,7 +15,8 @@ class ScriptsBrowser():
 
     scriptList = []
 
-    exePath = "C:\\Program Files\\Nuke12.2v5\\Nuke12.2.e --indie" # Remove absolute path        
+    exePath = "C:\\Program Files\\Nuke12.2v5\\Nuke12.2.exe --indie" # Remove absolute path        
+    
     rootDirSaveFile =  os.path.join(os.getcwd(), "json\\rootDirSave.json") # Files path to save json file with root directory  
     
     def __init__(self): 

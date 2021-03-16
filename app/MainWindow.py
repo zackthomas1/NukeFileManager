@@ -8,7 +8,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import * 
 
 # GUI from Qt Designer
-from __QtFiles__.NukeFileMangerGUI_v005 import Ui_MainWindow
+from __QtFiles__.MainWindow.NukeFileMangerGUI_v005 import Ui_MainWindow
 
 #
 from app.SettingsDialog import SettingsDialog

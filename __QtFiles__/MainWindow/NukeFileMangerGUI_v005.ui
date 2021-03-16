@@ -48,14 +48,14 @@
       <string>Script Browser</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="showBuilder_tab">
-     <attribute name="title">
-      <string>Show Builder</string>
-     </attribute>
-    </widget>
     <widget class="QWidget" name="shotBuilder_tab">
      <attribute name="title">
       <string>Shot Builder</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="showBuilder_tab">
+     <attribute name="title">
+      <string>Show Builder</string>
      </attribute>
     </widget>
    </widget>
