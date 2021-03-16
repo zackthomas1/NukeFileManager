@@ -3,6 +3,7 @@ import logging
 import subprocess 
 import os
 
+# Modules
 from modules.Utilities import Utilities
 
 class ScriptsBrowser(): 
@@ -120,7 +121,7 @@ class ScriptsBrowser():
         # if user didn't set a shot code and is trying to update the scripts list
         # or didn't set the show code and is trying to update the scripts list 
         if self.shotScriptsDir.endswith("\\Scripts\\") or os.path.isdir(self.shotScriptsDir) != True: 
-            logging.error("Error << ScriptsBrowser::update_scripts_list-> '%s' is not valid path to nuke scripts" % self.shotScriptsDir)
+            logging.error("ERROR << ScriptsBrowser::update_scripts_list-> '%s' is not valid path to nuke scripts" % self.shotScriptsDir)
             raise Exception
         
 
