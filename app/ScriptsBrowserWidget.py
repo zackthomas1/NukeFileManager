@@ -6,7 +6,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 # Gui from Qt Disigner
-from __QtFiles__.Widgets.ScriptsBrowser_GUI_v001 import Ui_Form
+from __QtFiles__.Widgets.ScriptsBrowser_GUI_v002 import Ui_Form
 
 # modules
 from modules.ScriptsBrowser import ScriptsBrowser
@@ -32,21 +32,17 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
         # Set up data models
         # ------------------------------
         # Root Directory Model
-        # self.rootDirModel = RootDirectoryModel()
         self.rootDirModel = rootDirModel
 
         # Show comboBox
-        # self.showCodeModel = ShowCodeModel() 
         self.showCodeModel = showCodeModel
         self.showCode_comboBox.setModel(self.showCodeModel)
 
         # Shot comboBox
-        # self.shotCodeModel = ShotCodeModel()
         self.shotCodeModel = shotCodeModel
         self.shotCode_comboBox.setModel(self.shotCodeModel)
 
         # Script list view    
-        # self.scriptsViewModel = ScriptsListModel()
         self.scriptsViewModel = scriptsViewModel
         self.scripts_listView.setModel(self.scriptsViewModel)
 
@@ -61,7 +57,7 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
         self.showCode_comboBox.currentIndexChanged.connect(self.selected_show_code)
         self.shotCode_comboBox.currentIndexChanged.connect(self.selected_shot_code)
 
-        self.updateScriptsList_pushButton.pressed.connect(self.calling_update_scripts_list)
+        # self.updateScriptsList_pushButton.pressed.connect(self.calling_update_scripts_list)
 
         self.launchNukeIndie_pushButton.pressed.connect(self.calling_launch_nukeindie)
 

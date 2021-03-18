@@ -34,10 +34,13 @@ class Ui_Form(object):
         font1 = QFont()
         font1.setPointSize(12)
         self.CreateShot_pushButton.setFont(font1)
-        self.selectedShow_label = QLabel(Form)
-        self.selectedShow_label.setObjectName(u"selectedShow_label")
-        self.selectedShow_label.setGeometry(QRect(30, 140, 450, 30))
-        self.selectedShow_label.setFont(font)
+        self.selectShow_label = QLabel(Form)
+        self.selectShow_label.setObjectName(u"selectShow_label")
+        self.selectShow_label.setGeometry(QRect(10, 140, 121, 51))
+        self.selectShow_label.setFont(font)
+        self.selectShow_comboBox = QComboBox(Form)
+        self.selectShow_comboBox.setObjectName(u"selectShow_comboBox")
+        self.selectShow_comboBox.setGeometry(QRect(138, 151, 341, 31))
 
         self.retranslateUi(Form)
 
@@ -49,6 +52,6 @@ class Ui_Form(object):
         self.EnterShotChode_lineEdit.setPlaceholderText(QCoreApplication.translate("Form", u"Enter Shot Code", None))
         self.shotCode_label.setText(QCoreApplication.translate("Form", u"Shot Code:", None))
         self.CreateShot_pushButton.setText(QCoreApplication.translate("Form", u"Create Shot Folder", None))
-        self.selectedShow_label.setText(QCoreApplication.translate("Form", u"Currently Selected Show: None", None))
+        self.selectShow_label.setText(QCoreApplication.translate("Form", u"Select Show:", None))
     # retranslateUi
 

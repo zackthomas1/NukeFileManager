@@ -67,13 +67,13 @@
     <string>Create Shot Folder</string>
    </property>
   </widget>
-  <widget class="QLabel" name="selectedShow_label">
+  <widget class="QLabel" name="selectShow_label">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>140</y>
-     <width>450</width>
-     <height>30</height>
+     <width>121</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -82,7 +82,17 @@
     </font>
    </property>
    <property name="text">
-    <string>Currently Selected Show: None</string>
+    <string>Select Show:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="selectShow_comboBox">
+   <property name="geometry">
+    <rect>
+     <x>138</x>
+     <y>151</y>
+     <width>341</width>
+     <height>31</height>
+    </rect>
    </property>
   </widget>
  </widget>

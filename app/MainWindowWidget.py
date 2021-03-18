@@ -64,14 +64,14 @@ class MainWindowWidget(QMainWindow, Ui_MainWindow):
         
         # shot builder
         self.shotBuilderTab_Widget = ShotBuilderWidget(self.rootDirModel, self.showCodeModel, 
-                                                        self.shotCodeModel)
+                                                        self.shotCodeModel )
         self.shotBuilderTab_Widget.setObjectName(u"shotBuilder_tab")
         self.tabWidget.addTab(self.shotBuilderTab_Widget, "")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.shotBuilderTab_Widget), 
                                     QCoreApplication.translate("MainWindow", u"Shot Builder", None))
 
         # show builder
-        self.showBuilderTab_Widget = ShowBuilderWidget(self.rootDirModel)
+        self.showBuilderTab_Widget = ShowBuilderWidget(self.rootDirModel, self.showCodeModel)
         self.showBuilderTab_Widget.setObjectName(u"showBuilder_tab")
         self.tabWidget.addTab(self.showBuilderTab_Widget, "")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.showBuilderTab_Widget), 

@@ -28,14 +28,29 @@ class ShotBuilderWidget(QWidget, Ui_Form):
 
         # Show Model
         self.showCodeModel = showCodeModel
+        self.selectShow_comboBox.setModel(self.showCodeModel)
+
+        self.shotCodeModel = shotCodeModel
 
         # Slot-Signal connections 
         # -----------------------
         self.CreateShot_pushButton.clicked.connect(self.call_create_shot)
 
-    def call_create_shot(self): 
+    def call_create_shot(self):
+
+        # Shot Code input 
         inputShotCode = self.EnterShotChode_lineEdit.text()       
         logging.debug("ShotBuilderWidget::call_create_shot -> Calling ShotBuilder.create_shot" + 
                 " with parameter %s" % inputShotCode)
-        self.shotBuilder.create_shot(inputShotCode, self.rootDirModel.directory, 
-                                        self.showCodeModel.selectedShow)
+
+        # Selected Show
+        index = self.selectShow_comboBox.currentIndex() 
+        inputShowCode = self.selectShow_comboBox.itemText(index)
+
+        # Create shot
+        self.shotBuilder.create_shot(inputShotCode, self.rootDirModel.directory, inputShowCode)
+        
+        # update shot code model
+        self.shotCodeModel.shots.append(inputShotCode)
+        self.shotCodeModel.shots.sort()
+        self.shotCodeModel.layoutChanged.emit()

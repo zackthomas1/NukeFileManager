@@ -14,7 +14,7 @@ class ShowBuilderWidget(QWidget, Ui_Form):
     
     showBuilder = ShowBuilder()
     
-    def __init__(self, rootDirModel): 
+    def __init__(self, rootDirModel, showCodeModel): 
         logging.debug("ShowBuilderWidget::__init__-> initalizing ShowBuilderWidget class")
         super().__init__() 
         self.setupUi(self)
@@ -24,6 +24,9 @@ class ShowBuilderWidget(QWidget, Ui_Form):
         # ------------------
         self.rootDirModel = rootDirModel
 
+        # Show Model
+        self.showCodeModel = showCodeModel
+     
         # Slot-Signal connections 
         # -----------------------
         self.CreateShow_pushButton.clicked.connect(self.call_create_show)
@@ -32,4 +35,10 @@ class ShowBuilderWidget(QWidget, Ui_Form):
         inputShowCode = self.EnterShowChode_lineEdit.text()
         logging.debug("ShowBuilderWidget::call_create_show -> inputShowCode: %s" % inputShowCode)
 
+        # Create show folder
         self.showBuilder.create_show(inputShowCode, self.rootDirModel.directory)
+
+        # Update show code model 
+        self.showCodeModel.shows.append(inputShowCode)
+        self.showCodeModel.shows.sort()
+        self.showCodeModel.layoutChanged.emit()
