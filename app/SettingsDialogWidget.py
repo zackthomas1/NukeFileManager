@@ -17,22 +17,22 @@ from modules.dataModels.ShotCodeModel import ShotCodeModel
 from modules.dataModels.ShowCodeModel import ShowCodeModel
 
 class SettingsDialog(QDialog, Ui_Settings_Dialog): 
-    def __init__(self, WidgetInstance, ScriptsBrowserInstance):
+    def __init__(self, ScriptsBrowserWidget, ScriptsBrowserInstance):
         logging.debug("SettingsDialog::__init__-> initalizing MainWindow class")
         super().__init__()
         self.setupUi(self)
 
         # 
         self.scriptsBrowserInstance = ScriptsBrowserInstance
-        self.widgetInstance = WidgetInstance
+        self.scriptsBrowserWidget = ScriptsBrowserWidget
 
         # Load json files 
         # ----------------
         # load saved root directory
         try:
             rootDirSaveFile = self.scriptsBrowserInstance.rootDirSaveFile
-            self.widgetInstance.rootDirModel.directory = Utilities.load_json(rootDirSaveFile)
-            self.rootDirectory_lineEdit.setText(self.widgetInstance.rootDirModel.directory)
+            self.scriptsBrowserWidget.rootDirModel.directory = Utilities.load_json(rootDirSaveFile)
+            self.rootDirectory_lineEdit.setText(self.scriptsBrowserWidget.rootDirModel.directory)
             self.entered_root_dir()
         except Exception: 
             logging.error("ERROR << SettingsDialog::__init__-> Utilites.load_json call failed")
@@ -53,38 +53,38 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
             self.scriptsBrowserInstance.set_root_dir(self.rootDirectory_lineEdit.text())
 
             # Update show_comboBox
-            self.widgetInstance.showCode_comboBox.setCurrentIndex(-1)
-            self.scriptsBrowserInstance.update_shows_list(self.widgetInstance.showCodeModel)
-            self.widgetInstance.showCodeModel.layoutChanged.emit()
+            self.scriptsBrowserWidget.showCode_comboBox.setCurrentIndex(-1)
+            self.scriptsBrowserInstance.update_shows_list(self.scriptsBrowserWidget.showCodeModel)
+            self.scriptsBrowserWidget.showCodeModel.layoutChanged.emit()
             logging.debug("SettingsDialog::entered_root_dir-> " +
-                    "Updating showCode_comboBox with: %s" % self.widgetInstance.showCodeModel.shows)
+                    "Updating showCode_comboBox with: %s" % self.scriptsBrowserWidget.showCodeModel.shows)
            
-            if self.widgetInstance.shotCodeModel.shots != []: 
+            if self.scriptsBrowserWidget.shotCodeModel.shots != []: 
                 # Update show_comboBox
-                self.widgetInstance.shotCode_comboBox.setCurrentIndex(-1)
-                self.widgetInstance.shotCodeModel.shots = []
-                # self.scriptsBrowserInstance.update_shots_list(self.widgetInstance.showCodeModel)
-                self.widgetInstance.shotCodeModel.layoutChanged.emit()
+                self.scriptsBrowserWidget.shotCode_comboBox.setCurrentIndex(-1)
+                self.scriptsBrowserWidget.shotCodeModel.shots = []
+                # self.scriptsBrowserInstance.update_shots_list(self.scriptsBrowserWidget.showCodeModel)
+                self.scriptsBrowserWidget.shotCodeModel.layoutChanged.emit()
                 logging.debug("SettingsDialog::entered_root_dir-> " +
                         "Emptying shotCode_comboBox.")
 
         except Exception:
 
-            self.widgetInstance.showCode_comboBox.setCurrentIndex(-1)
-            self.widgetInstance.showCodeModel.shows= []
-            self.widgetInstance.showCodeModel.layoutChanged.emit()
+            self.scriptsBrowserWidget.showCode_comboBox.setCurrentIndex(-1)
+            self.scriptsBrowserWidget.showCodeModel.shows= []
+            self.scriptsBrowserWidget.showCodeModel.layoutChanged.emit()
 
-            self.widgetInstance.shotCode_comboBox.setCurrentIndex(-1)
-            self.widgetInstance.shotCodeModel.shots = []
-            self.widgetInstance.shotCodeModel.layoutChanged.emit()
+            self.scriptsBrowserWidget.shotCode_comboBox.setCurrentIndex(-1)
+            self.scriptsBrowserWidget.shotCodeModel.shots = []
+            self.scriptsBrowserWidget.shotCodeModel.layoutChanged.emit()
 
             logging.error("ERROR << SettingsDialog::entered_root_dir-> " + 
                     "could not obtain valid root director from ScriptsBrowser.set_root_dir()")
         
         # Clear scripts_listView if root directory is updated 
-        if self.widgetInstance.scriptsViewModel.scripts != []: 
-            self.widgetInstance.scriptsViewModel.scripts = [] 
-            self.widgetInstance.scriptsViewModel.layoutChanged.emit()
+        if self.scriptsBrowserWidget.scriptsViewModel.scripts != []: 
+            self.scriptsBrowserWidget.scriptsViewModel.scripts = [] 
+            self.scriptsBrowserWidget.scriptsViewModel.layoutChanged.emit()
 
     def enter_nuke_exe_path(self): 
         """ """

@@ -23,27 +23,31 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
 
     scriptsBrowser = ScriptsBrowser()
 
-    def __init__(self):
+    def __init__(self, rootDirModel, showCodeModel, shotCodeModel, scriptsViewModel):
         logging.debug("ScriptBrowserWidget::__init__-> initalizing ScriptBrowserWidget class")
         super().__init__()
         self.setupUi(self)
         self.show()
         
-        # Set up scripts list view model 
+        # Set up data models
         # ------------------------------
         # Root Directory Model
-        self.rootDirModel = RootDirectoryModel()
+        # self.rootDirModel = RootDirectoryModel()
+        self.rootDirModel = rootDirModel
 
         # Show comboBox
-        self.showCodeModel = ShowCodeModel() 
+        # self.showCodeModel = ShowCodeModel() 
+        self.showCodeModel = showCodeModel
         self.showCode_comboBox.setModel(self.showCodeModel)
 
         # Shot comboBox
-        self.shotCodeModel = ShotCodeModel()
+        # self.shotCodeModel = ShotCodeModel()
+        self.shotCodeModel = shotCodeModel
         self.shotCode_comboBox.setModel(self.shotCodeModel)
 
         # Script list view    
-        self.scriptsViewModel = ScriptsListModel()
+        # self.scriptsViewModel = ScriptsListModel()
+        self.scriptsViewModel = scriptsViewModel
         self.scripts_listView.setModel(self.scriptsViewModel)
 
         # Ui_Form Style adjustments

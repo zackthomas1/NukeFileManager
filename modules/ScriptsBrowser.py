@@ -143,4 +143,4 @@ class ScriptsBrowser():
         logging.debug("ScriptsBrowser::doubleClick_launch_script_nukeIndie-> nkScript: \'%s\'" % nkScript)
 
         subprocess.Popen("%s %s" % (self.exePath, nkScript))
-
+    

@@ -35,37 +35,54 @@ class MainWindowWidget(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.show()
 
-        # Slot-Signal connections 
-        # -----------------------
-        # Menu
-        self.openSettings_action.triggered.connect(self.open_settings_dialog) 
+        # Set up data models
+        # ------------------------------
+        # Root Directory Model
+        self.rootDirModel = RootDirectoryModel()
+
+        # Show Model
+        self.showCodeModel = ShowCodeModel() 
+
+        # Shot Model 
+        self.shotCodeModel = ShotCodeModel()
+
+        # Script listWiew Model   
+        self.scriptsViewModel = ScriptsListModel()
 
         # UI_MainWindow Style adjustments
         # -------------------------------
         # Tabs
         self.tabWidget.clear()
-        self.scriptBrowserTab_Widget = ScriptBrowserWidget()
+
+        self.scriptBrowserTab_Widget = ScriptBrowserWidget(self.rootDirModel, self.showCodeModel, 
+                                            self.shotCodeModel,  self.scriptsViewModel)
         self.scriptBrowserTab_Widget.setObjectName(u"scriptBrowser_tab")
         self.tabWidget.addTab(self.scriptBrowserTab_Widget, "")
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.scriptBrowserTab_Widget), QCoreApplication.translate("MainWindow", u"Script Browser", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.scriptBrowserTab_Widget), 
+                                    QCoreApplication.translate("MainWindow", u"Script Browser", None))
         
         self.shotBuilderTab_Widget = ShotBuilderWidget()
         self.shotBuilderTab_Widget.setObjectName(u"shotBuilder_tab")
         self.tabWidget.addTab(self.shotBuilderTab_Widget, "")
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.shotBuilderTab_Widget), QCoreApplication.translate("MainWindow", u"Shot Builder", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.shotBuilderTab_Widget), 
+                                    QCoreApplication.translate("MainWindow", u"Shot Builder", None))
 
         self.showBuilderTab_Widget = ShowBuilderWidget()
         self.showBuilderTab_Widget.setObjectName(u"showBuilder_tab")
         self.tabWidget.addTab(self.showBuilderTab_Widget, "")
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.showBuilderTab_Widget), QCoreApplication.translate("MainWindow", u"Show Builder", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.showBuilderTab_Widget), 
+                                    QCoreApplication.translate("MainWindow", u"Show Builder", None))
+
+        # Slot-Signal connections 
+        # -----------------------
+        # Menu
+        self.openSettings_action.triggered.connect(self.open_settings_dialog) 
 
         # Set up dialog windows
         # -------------------------
         self.settingsDialog = SettingsDialog(self.scriptBrowserTab_Widget, self.scriptBrowserTab_Widget.scriptsBrowser) 
-
         self.setCentralWidget(self.tabWidget)
  
-
     def open_settings_dialog(self): 
         """Show/hide root directory dialog window""" 
         logging.debug("MainWindow::open_settings_dialog-> calling SettingsDialog class")
