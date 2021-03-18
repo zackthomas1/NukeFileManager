@@ -70,6 +70,7 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
         # Retrieve string of selected comboBox index
         index = self.showCode_comboBox.currentIndex() 
         inputShowCode = self.showCode_comboBox.itemText(index)
+        self.showCodeModel.selectedShow = inputShowCode
 
         logging.debug("ScriptBrowserWidget::selected_show_code -> " + 
                 "calling ScriptsBrowser.set_show_code() method " + 
@@ -81,25 +82,30 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
             try:
                 self.shotCode_comboBox.setCurrentIndex(-1)
                 self.scriptsBrowser.update_shots_list(self.shotCodeModel)
-                self.shotCodeModel.layoutChanged.emit()
                 logging.debug("ScriptBrowserWidget::selected_show_code-> " + 
                         "Updating shotCode_comboBox with: %s" % inputShowCode)
             except Exception:
                 self.shotCodeModel.shots = []
-                self.shotCodeModel.layoutChanged.emit()
                 logging.error("ERROR << ScriptBrowserWidget::calling_update_shot_list-> "+
                         "Unable to retrieve valid shots list from ScriptsBrowser.update_shot_list()")
+
+        self.shotCodeModel.layoutChanged.emit()
+
 
     def selected_shot_code(self): 
 
         # Retrieve string of selected comboBox index
         index = self.shotCode_comboBox.currentIndex()
         inputShotCode = self.shotCode_comboBox.itemText(index)
+        self.shotCodeModel.selectedShot = inputShotCode
+        self.shotCodeModel.layoutChanged.emit()
 
         logging.debug("ScriptBrowserWidget::selected_shot_code-> " + 
                         "calling ScriptsBrowser.set_shot_code() method " +
                         "with parameter: %s" % str(inputShotCode))
         self.scriptsBrowser.set_shot_code(inputShotCode)
+
+        self.calling_update_scripts_list()
 
     def calling_update_scripts_list(self): 
         logging.debug("ScriptBrowserWidget::calling_update_scripts_list -> " + 

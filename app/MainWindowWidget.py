@@ -54,20 +54,24 @@ class MainWindowWidget(QMainWindow, Ui_MainWindow):
         # Tabs
         self.tabWidget.clear()
 
+        # script browser
         self.scriptBrowserTab_Widget = ScriptBrowserWidget(self.rootDirModel, self.showCodeModel, 
-                                            self.shotCodeModel,  self.scriptsViewModel)
+                                                            self.shotCodeModel,  self.scriptsViewModel)
         self.scriptBrowserTab_Widget.setObjectName(u"scriptBrowser_tab")
         self.tabWidget.addTab(self.scriptBrowserTab_Widget, "")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.scriptBrowserTab_Widget), 
                                     QCoreApplication.translate("MainWindow", u"Script Browser", None))
         
-        self.shotBuilderTab_Widget = ShotBuilderWidget()
+        # shot builder
+        self.shotBuilderTab_Widget = ShotBuilderWidget(self.rootDirModel, self.showCodeModel, 
+                                                        self.shotCodeModel)
         self.shotBuilderTab_Widget.setObjectName(u"shotBuilder_tab")
         self.tabWidget.addTab(self.shotBuilderTab_Widget, "")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.shotBuilderTab_Widget), 
                                     QCoreApplication.translate("MainWindow", u"Shot Builder", None))
 
-        self.showBuilderTab_Widget = ShowBuilderWidget()
+        # show builder
+        self.showBuilderTab_Widget = ShowBuilderWidget(self.rootDirModel)
         self.showBuilderTab_Widget.setObjectName(u"showBuilder_tab")
         self.tabWidget.addTab(self.showBuilderTab_Widget, "")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.showBuilderTab_Widget), 

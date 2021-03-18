@@ -15,11 +15,19 @@ class ShotBuilderWidget(QWidget, Ui_Form):
 
     shotBuilder = ShotBuilder() 
 
-    def __init__(self): 
+    def __init__(self, rootDirModel, showCodeModel, shotCodeModel): 
         #logging.debug("ShotBuilderWidget::__init__-> initalizing ShotBuilderWidget class")
         super().__init__() 
         self.setupUi(self)
         self.show
+
+        # Set up data models
+        # ------------------------------
+        # Root Directory Model
+        self.rootDirModel = rootDirModel
+
+        # Show Model
+        self.showCodeModel = showCodeModel
 
         # Slot-Signal connections 
         # -----------------------
@@ -29,4 +37,5 @@ class ShotBuilderWidget(QWidget, Ui_Form):
         inputShotCode = self.EnterShotChode_lineEdit.text()       
         logging.debug("ShotBuilderWidget::call_create_shot -> Calling ShotBuilder.create_shot" + 
                 " with parameter %s" % inputShotCode)
-        self.shotBuilder.create_shot(inputShotCode)
+        self.shotBuilder.create_shot(inputShotCode, self.rootDirModel.directory, 
+                                        self.showCodeModel.selectedShow)

@@ -34,6 +34,10 @@ class Ui_Form(object):
         font1 = QFont()
         font1.setPointSize(12)
         self.CreateShot_pushButton.setFont(font1)
+        self.selectedShow_label = QLabel(Form)
+        self.selectedShow_label.setObjectName(u"selectedShow_label")
+        self.selectedShow_label.setGeometry(QRect(30, 140, 450, 30))
+        self.selectedShow_label.setFont(font)
 
         self.retranslateUi(Form)
 
@@ -45,5 +49,6 @@ class Ui_Form(object):
         self.EnterShotChode_lineEdit.setPlaceholderText(QCoreApplication.translate("Form", u"Enter Shot Code", None))
         self.shotCode_label.setText(QCoreApplication.translate("Form", u"Shot Code:", None))
         self.CreateShot_pushButton.setText(QCoreApplication.translate("Form", u"Create Shot Folder", None))
+        self.selectedShow_label.setText(QCoreApplication.translate("Form", u"Currently Selected Show: None", None))
     # retranslateUi
 

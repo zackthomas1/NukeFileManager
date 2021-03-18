@@ -67,6 +67,24 @@
     <string>Create Shot Folder</string>
    </property>
   </widget>
+  <widget class="QLabel" name="selectedShow_label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>140</y>
+     <width>450</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Currently Selected Show: None</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

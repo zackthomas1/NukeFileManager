@@ -67,7 +67,6 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
                 self.scriptsBrowserWidget.shotCodeModel.layoutChanged.emit()
                 logging.debug("SettingsDialog::entered_root_dir-> " +
                         "Emptying shotCode_comboBox.")
-
         except Exception:
 
             self.scriptsBrowserWidget.showCode_comboBox.setCurrentIndex(-1)
