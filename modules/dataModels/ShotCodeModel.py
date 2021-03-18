@@ -9,6 +9,7 @@ class ShotCodeModel(QAbstractListModel):
     def __init__(self, shots = None):
         super().__init__()
         self.shots = shots or [] 
+        self.selectedShot = ""
         logging.debug("ShotCodeModel::__init__-> Initializing shot code model")
 
     def data(self, index, role): 

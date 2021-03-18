@@ -16,12 +16,24 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>550</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>550</width>
+    <height>800</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
@@ -30,9 +42,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>-2</y>
-      <width>531</width>
-      <height>29</height>
+      <y>0</y>
+      <width>530</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -41,19 +53,19 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
-    <widget class="QWidget" name="scriptBrowser_tab">
+    <widget class="QWidget" name="scriptsBrowserTab_Widget">
      <attribute name="title">
       <string>Script Browser</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="shotBuilder_tab">
+    <widget class="QWidget" name="shotBuilderTab_Widget">
      <attribute name="title">
       <string>Shot Builder</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="showBuilder_tab">
+    <widget class="QWidget" name="showBuilderTab_Widget">
      <attribute name="title">
       <string>Show Builder</string>
      </attribute>

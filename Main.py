@@ -3,8 +3,12 @@
 import sys
 import os
 import logging
+
+# pyside 2
 from PySide2.QtWidgets import *
-from app.MainWindow import MainWindow
+
+# Custom Widget
+from app.MainWindowWidget import MainWindowWidget
 
 #Sets up logging
 logging.basicConfig(level=logging.DEBUG, format='\t%(asctime)s.%(msecs)03d: %(message)s', datefmt='%H:%M:%S')
@@ -15,7 +19,7 @@ logging.basicConfig(level=logging.DEBUG, format='\t%(asctime)s.%(msecs)03d: %(me
 if __name__ == "__main__": 
     app = QApplication(sys.argv)
 
-    w = MainWindow()  
+    w = MainWindowWidget()  
     w.show() 
 
     app.exec_()

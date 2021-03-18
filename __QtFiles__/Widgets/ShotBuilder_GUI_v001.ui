@@ -13,23 +13,31 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="EnterShotChode_lineEdit">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>140</y>
+     <x>140</x>
+     <y>200</y>
      <width>340</width>
      <height>30</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="placeholderText">
+    <string>Enter Shot Code</string>
+   </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="shotCode_label">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>140</y>
+     <x>30</x>
+     <y>205</y>
      <width>101</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
@@ -41,11 +49,11 @@
     <string>Shot Code:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="CreateShot_pushButton">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>200</y>
+     <x>190</x>
+     <y>250</y>
      <width>180</width>
      <height>30</height>
     </rect>
@@ -57,6 +65,34 @@
    </property>
    <property name="text">
     <string>Create Shot Folder</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="selectShow_label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>121</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Select Show:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="selectShow_comboBox">
+   <property name="geometry">
+    <rect>
+     <x>138</x>
+     <y>151</y>
+     <width>341</width>
+     <height>31</height>
+    </rect>
    </property>
   </widget>
  </widget>

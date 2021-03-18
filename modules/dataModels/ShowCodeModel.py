@@ -9,6 +9,7 @@ class ShowCodeModel(QAbstractListModel):
     def __init__(self, shows = None):
         super().__init__()
         self.shows = shows or []
+        self.selectedShow = ""
         logging.debug("ShowCodeModel::__init__ -> Initializing show code model")
 
     def data(self, index, role): 

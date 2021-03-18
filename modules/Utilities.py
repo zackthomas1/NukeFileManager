@@ -22,7 +22,7 @@ class Utilities():
         try: 
             with open(json_file, 'r') as file: 
                 data_struct = json.load(file)
-            logging.debug("Utilities::load_json-> Json File Path: %s \t Contents: %s" % (json_file, data_struct))
+            logging.debug("Utilities::load_json-> Json File Path: %s ---- Contents: %s" % (json_file, data_struct))
             return data_struct
         except Exception: 
             logging.error("ERROR << Utilites::load_json-> Unable to load json file.")
