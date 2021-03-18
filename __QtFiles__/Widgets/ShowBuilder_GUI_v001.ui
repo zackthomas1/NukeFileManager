@@ -13,11 +13,11 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLineEdit" name="showCode_lineEdit">
+  <widget class="QLineEdit" name="EnterShowChode_lineEdit">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>190</y>
+     <x>140</x>
+     <y>200</y>
      <width>340</width>
      <height>30</height>
     </rect>
@@ -34,10 +34,10 @@
   <widget class="QLabel" name="showCode_label">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>180</y>
-     <width>131</width>
-     <height>51</height>
+     <x>20</x>
+     <y>205</y>
+     <width>111</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
@@ -49,14 +49,19 @@
     <string>Show Code: </string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="CreateShow_pushButton">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>340</y>
-     <width>180</width>
+     <x>190</x>
+     <y>250</y>
+     <width>230</width>
      <height>30</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Create Show Project Structure</string>
