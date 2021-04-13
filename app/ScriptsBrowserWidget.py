@@ -62,6 +62,7 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
         self.launchNukeIndie_pushButton.pressed.connect(self.calling_launch_nukeindie)
 
     def selected_show_code(self):
+        """ """
     
         # Retrieve string of selected comboBox index
         index = self.showCode_comboBox.currentIndex() 
@@ -87,7 +88,6 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
 
         self.shotCodeModel.layoutChanged.emit()
 
-
     def selected_shot_code(self): 
 
         # Retrieve string of selected comboBox index
@@ -104,6 +104,8 @@ class ScriptBrowserWidget(QWidget, Ui_Form):
         self.calling_update_scripts_list()
 
     def calling_update_scripts_list(self): 
+        """ """
+
         logging.debug("ScriptBrowserWidget::calling_update_scripts_list -> " + 
                         "calling ScriptsBrowser.update_scripts_list() method ")
 

@@ -89,6 +89,7 @@ class MainWindowWidget(QMainWindow, Ui_MainWindow):
  
     def open_settings_dialog(self): 
         """Show/hide root directory dialog window""" 
+        
         logging.debug("MainWindow::open_settings_dialog-> calling SettingsDialog class")
 
         if self.settingsDialog.isVisible():

@@ -133,6 +133,24 @@
      <string>Shot: </string>
     </property>
    </widget>
+   <widget class="QPushButton" name="updateScriptsList_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>470</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Update Scripts List</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

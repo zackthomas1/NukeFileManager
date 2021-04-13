@@ -24,13 +24,17 @@ class ScriptsBrowser():
         pass
   
     def set_nuke_exe_path(self, exePath):
+        """set nuke executable file path. this is the application that will open 
+        when a script is selected or open nuke is clicked"""
+
         logging.debug("ScriptsBrowser::set_nuke_exe_path-> " 
                     "setting nuke exe path to '%s'" % exePath)
 
         self.exePath = exePath
 
     def launch_nukeindie(self, scriptName = None): 
-        """Launches an instance of nuke indie application"""   
+        """Launches an instance of nuke indie application"""
+
         try: 
             if scriptName != None:
                 nkScript = os.path.join(self.shotScriptsDir, scriptName)
@@ -43,7 +47,7 @@ class ScriptsBrowser():
             logging.error("ERROR << ScriptsBrowser::launch_nukeindie -> Unable to launch Nuke")
         
     def set_root_dir(self, inputDirPath):
-        """ """
+        """set the root directory"""
 
         if os.path.isdir(inputDirPath): 
             self.rootDir = inputDirPath
@@ -54,7 +58,8 @@ class ScriptsBrowser():
             raise Exception
 
     def set_show_code(self, inputShowCode): 
-        """ """ 
+        """set show code variable""" 
+
         if os.path.isdir(os.path.join(self.rootDir, inputShowCode)):
             self.showCode = inputShowCode 
             logging.debug ("ScriptsBrowser::set_show_code-> showCode: %s" % self.showCode)
@@ -63,7 +68,7 @@ class ScriptsBrowser():
             raise Exception
 
     def set_shot_code(self, inputShotCode):  
-        """ """
+        """set shot code variable"""
         
         self.shotCode = inputShotCode
         logging.debug("ScriptsBrowser::set_shot_code-> shotCode: %s" % self.shotCode)

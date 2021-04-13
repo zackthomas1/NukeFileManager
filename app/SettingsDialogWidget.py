@@ -38,17 +38,19 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
             logging.error("ERROR << SettingsDialog::__init__-> Utilites.load_json call failed")
 
 
-        # 
+        # gets the path Nuke indie executable from the ScriptsBrowser class
         self.NukeExe_lineEdit.setText(self.scriptsBrowserInstance.exePath)
 
         # Slot-Signal connections 
         # -----------------------  
         # self.NukeExe_lineEdit.selectionChanged.connect()
         self.ok_buttonBox.accepted.connect(self.enter_confirm_settings)
-        self.ok_buttonBox.rejected.connect(self.close_directory_dialog_window)
+        self.ok_buttonBox.rejected.connect(self.close_settings_dialog_window)
 
     def entered_root_dir(self): 
-        """ """ 
+        """calls 'set_root_dir' method from ScriptsBrowser class and 
+        sets scripts browser GUI back to defaults""" 
+        
         try:
             self.scriptsBrowserInstance.set_root_dir(self.rootDirectory_lineEdit.text())
 
@@ -86,7 +88,8 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
             self.scriptsBrowserWidget.scriptsViewModel.layoutChanged.emit()
 
     def enter_nuke_exe_path(self): 
-        """ """
+        """calls 'set_nuke_exe_path' method from ScriptsBrowser class to update Nuke file path"""
+
         logging.debug("SettingsDialog::enter_nuke_exe_path-> " + 
                     "calling ScriptsBrowser.set_nuke_exe_path" + 
                     "with parameter '%s'" % self.NukeExe_lineEdit.text())
@@ -94,14 +97,14 @@ class SettingsDialog(QDialog, Ui_Settings_Dialog):
 
 
     def enter_confirm_settings(self):
-
+        """updates all settings then closes window"""
         self.entered_root_dir() 
         self.enter_nuke_exe_path()
 
         self.hide()
 
-    def close_directory_dialog_window(self): 
-        """ """ 
+    def close_settings_dialog_window(self): 
+        """closes settings dialog window""" 
 
         logging.debug("DirectoryDialogWindow::close_directory_dialog_window-> hiding directory dialog ")
         self.hide()
